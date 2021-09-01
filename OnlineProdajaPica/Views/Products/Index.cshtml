@@ -21,7 +21,7 @@
             @Html.DisplayNameFor(model => model.NumberInStock)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CategoryId)
+            Slika
         </th>
         <th></th>
     </tr>
@@ -38,7 +38,7 @@
             @Html.DisplayFor(modelItem => item.NumberInStock)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Category.Name)
+            <img src="~/img/products/@item.ImageUrl" style="height:50px" />
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

@@ -25,6 +25,8 @@ namespace OnlineProdajaPica.ViewModels
         [Required]
         public int CategoryId { get; set; }
 
+        public string ImageUrl { get; set; }
+
         public ProductViewModel()
         {
             Id = 0;
@@ -37,6 +39,7 @@ namespace OnlineProdajaPica.ViewModels
             Description = product.Description;
             NumberInStock = product.NumberInStock;
             CategoryId = product.CategoryId;
+            ImageUrl = product.ImageUrl;
         }
     }
 }

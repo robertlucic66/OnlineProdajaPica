@@ -23,5 +23,7 @@ namespace OnlineProdajaPica.Models
 
         [Required]
         public int CategoryId { get; set; }
+
+        public string ImageUrl { get; set; }
     }
 }
