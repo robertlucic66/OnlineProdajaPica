@@ -12,40 +12,6 @@ namespace OnlineProdajaPica.Controllers
 {
     public class ProductsController : Controller
     {
-        //private List<Category> kategorije = new List<Category>()
-        //{
-        //    new Category()
-        //    {
-        //        Id=1,
-        //        Name="Žestoka pića"
-        //    },
-        //    new Category()
-        //    {
-        //        Id=2,
-        //        Name="Gazirana pića"
-        //    }
-        //};
-
-        //private List<Product> lista = new List<Product>()
-        //{
-        //    new Product()
-        //    {
-        //        Id=1,
-        //        Name="Coca Cola",
-        //        NumberInStock = 1,
-        //        CategoryId = 2,
-        //        Description = "obicna koka kola"
-        //    },
-        //    new Product()
-        //    {
-        //        Id=2,
-        //        Name="Johnny Walker",
-        //        NumberInStock = 3,
-        //        CategoryId = 1,
-        //        Description = "Johnny Walker"
-        //    }
-        //};
-
         private ApplicationDbContext _context;
 
         public ProductsController()
@@ -97,7 +63,7 @@ namespace OnlineProdajaPica.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
             if (id < 1)
             {
@@ -155,6 +121,10 @@ namespace OnlineProdajaPica.Controllers
 
         public ActionResult Delete(int id)
         {
+            if (id < 1)
+            {
+                return Content("Neispravan ID");
+            }
             try
             {
                 var productToDelete = _context.Products.Single(p => p.Id == id);
@@ -168,8 +138,12 @@ namespace OnlineProdajaPica.Controllers
             }
         }
 
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
+            if (id < 1)
+            {
+                return Content("Neispravan ID");
+            }
             try
             {
                 var product = _context.Products.Include(p=>p.Category).Single(p => p.Id == id);

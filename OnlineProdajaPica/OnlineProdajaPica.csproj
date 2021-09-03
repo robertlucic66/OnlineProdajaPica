@@ -168,6 +168,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
@@ -185,6 +186,10 @@
     <Compile Include="Migrations\202108311734141_addedImageUrlProperty.cs" />
     <Compile Include="Migrations\202108311734141_addedImageUrlProperty.Designer.cs">
       <DependentUpon>202108311734141_addedImageUrlProperty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109031525515_addedQuantityProperty.cs" />
+    <Compile Include="Migrations\202109031525515_addedQuantityProperty.Designer.cs">
+      <DependentUpon>202109031525515_addedQuantityProperty.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -256,6 +261,7 @@
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Products\Details.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -283,6 +289,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202108311734141_addedImageUrlProperty.resx">
       <DependentUpon>202108311734141_addedImageUrlProperty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109031525515_addedQuantityProperty.resx">
+      <DependentUpon>202109031525515_addedQuantityProperty.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
