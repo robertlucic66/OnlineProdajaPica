@@ -47,5 +47,29 @@ namespace OnlineProdajaPica.Controllers
             Session["Cart"] = kosarica;
             return RedirectToAction("Index");
         }
+
+        public ActionResult RemoveFromCart(int? id)
+        {
+            if (id < 1)
+            {
+                return Content("Neispravan ID");
+            }
+            try
+            {
+                kosarica = (List<Product>)Session["Cart"];
+                var product = kosarica.Single(p => p.Id == id);
+                product.Quantity -= 1;
+                if (product.Quantity < 1)
+                {
+                    kosarica.Remove(product);
+                }
+                Session["Cart"] = kosarica;
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return Content("Greška");
+            }
+        }
     }
 }

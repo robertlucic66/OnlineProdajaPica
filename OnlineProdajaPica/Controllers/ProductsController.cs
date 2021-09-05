@@ -26,18 +26,21 @@ namespace OnlineProdajaPica.Controllers
         // GET: Products
         public ActionResult Index()
         {
-            var listaProizvoda = _context.Products.Include(p=>p.Category).ToList();
-            return View(listaProizvoda);
+            if (Session["Cart"] == null)
+            {
+                List<Product> kosarica = new List<Product>();
+                Session["Cart"] = kosarica;
+            }
+            var productList = _context.Products.Include(p=>p.Category).ToList();
+            return View(productList);
         }
 
         public ActionResult Create()
         {
             var categories = _context.Categories.ToList();
-            int id = (_context.Products.OrderByDescending(p => p.Id).FirstOrDefault().Id) + 1;
             var viewModel = new ProductViewModel()
             {
-                Categories = categories,
-                Id = id
+                Categories = categories
             };
 
             return View(viewModel);
