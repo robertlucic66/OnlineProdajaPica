@@ -10,6 +10,7 @@ using System.IO;
 
 namespace OnlineProdajaPica.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ProductsController : Controller
     {
         private ApplicationDbContext _context;
@@ -24,6 +25,7 @@ namespace OnlineProdajaPica.Controllers
         }
 
         // GET: Products
+        [AllowAnonymous]
         public ActionResult Index()
         {
             if (Session["Cart"] == null)

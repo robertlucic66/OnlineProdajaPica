@@ -191,6 +191,10 @@
     <Compile Include="Migrations\202109031525515_addedQuantityProperty.Designer.cs">
       <DependentUpon>202109031525515_addedQuantityProperty.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202109051658463_SeedUsers.cs" />
+    <Compile Include="Migrations\202109051658463_SeedUsers.Designer.cs">
+      <DependentUpon>202109051658463_SeedUsers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -292,6 +296,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202109031525515_addedQuantityProperty.resx">
       <DependentUpon>202109031525515_addedQuantityProperty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109051658463_SeedUsers.resx">
+      <DependentUpon>202109051658463_SeedUsers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

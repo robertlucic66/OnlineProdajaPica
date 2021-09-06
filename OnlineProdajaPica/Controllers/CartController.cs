@@ -17,7 +17,7 @@ namespace OnlineProdajaPica.Controllers
             _context = new ApplicationDbContext();
             kosarica = new List<Product>();
         }
-        // GET: Cart
+        // GET: Cart        
         public ActionResult Index()
         {
             if (Session["Cart"] != null)
