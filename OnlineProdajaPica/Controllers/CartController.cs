@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace OnlineProdajaPica.Controllers
 {
@@ -70,6 +71,31 @@ namespace OnlineProdajaPica.Controllers
             {
                 return Content("Greška");
             }
+        }
+
+        public ActionResult SendOrder()
+        {
+            kosarica = (List<Product>)Session["Cart"];
+            List<int> productList = new List<int>();
+            List<int> quantityList = new List<int>();
+            foreach (var item in kosarica)
+            {
+                productList.Add(item.Id);
+                quantityList.Add(item.Quantity);
+            }
+
+            Order order = new Order()
+            {
+                Proizvodi = String.Join(",", productList),
+                Kolicine = String.Join(",", quantityList),
+                UserId = User.Identity.GetUserId(),
+                DatumNarudzbe = DateTime.Now
+            };
+
+            _context.Orders.Add(order);
+            _context.SaveChanges();
+            Session["Cart"] = null;
+            return RedirectToAction("Index");
         }
     }
 }

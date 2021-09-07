@@ -171,6 +171,7 @@
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -195,11 +196,16 @@
     <Compile Include="Migrations\202109051658463_SeedUsers.Designer.cs">
       <DependentUpon>202109051658463_SeedUsers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202109071220366_dodanModelZaNarudzbe.cs" />
+    <Compile Include="Migrations\202109071220366_dodanModelZaNarudzbe.Designer.cs">
+      <DependentUpon>202109071220366_dodanModelZaNarudzbe.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -270,6 +276,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="img\products\" />
+    <Folder Include="Views\Orders\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -299,6 +306,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202109051658463_SeedUsers.resx">
       <DependentUpon>202109051658463_SeedUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109071220366_dodanModelZaNarudzbe.resx">
+      <DependentUpon>202109071220366_dodanModelZaNarudzbe.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
