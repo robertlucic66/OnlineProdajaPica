@@ -18,6 +18,11 @@ namespace OnlineProdajaPica.Controllers
             _context = new ApplicationDbContext();
             kosarica = new List<Product>();
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
         // GET: Cart        
         public ActionResult Index()
         {

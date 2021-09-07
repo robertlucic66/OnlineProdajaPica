@@ -32,5 +32,7 @@ namespace OnlineProdajaPica.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<OnlineProdajaPica.ViewModels.OrdersViewModel> OrdersViewModels { get; set; }
     }
 }
