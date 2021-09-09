@@ -8,6 +8,7 @@ using Microsoft.AspNet.Identity;
 
 namespace OnlineProdajaPica.Controllers
 {
+    [Authorize]
     public class CartController : Controller
     {
         private ApplicationDbContext _context;

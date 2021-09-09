@@ -1,0 +1,54 @@
+﻿@model OnlineProdajaPica.ViewModels.OrdersViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Narudžba ID: @Model.Id</h2>
+
+<div>
+    <h4>Narudžbu poslao/la: @Model.Username</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            User ID
+        </dt>
+        <dd>
+            @ViewBag.UserId
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Username)
+        </dd>
+
+        <dt>
+            Vrijeme narudžbe
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DatumNarudzbe)
+        </dd>
+
+    </dl>
+</div>
+
+<table class="table">
+    <tr>
+        <th>Naziv proizvoda</th>
+        <th>Količina</th>
+    </tr>
+@foreach (var item in Model.Products)
+{
+    <tr>
+        <td>@item.Name</td>
+        <td>@item.Quantity</td>
+    </tr>
+}
+</table>
+
+<p>
+    @Html.ActionLink("Sve narudžbe", "Index")
+</p>
