@@ -34,7 +34,9 @@ namespace OnlineProdajaPica.Controllers
                 Session["Cart"] = kosarica;
             }
             var productList = _context.Products.Include(p=>p.Category).ToList();
-            return View(productList);
+            if (User.IsInRole("Admin"))
+                return View("AdminView", productList);
+            return View("Index", productList);
         }
 
         public ActionResult Create()

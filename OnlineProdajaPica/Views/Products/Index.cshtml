@@ -2,51 +2,108 @@
 
 @{
     ViewBag.Title = "Index";
+    var porukaa = TempData["Poruka"] as string;
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NumberInStock)
-        </th>
-        <th>
-            Slika
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NumberInStock)
-        </td>
-        <td>
-            <img src="~/img/products/@item.ImageUrl" style="height:50px" />
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            @Html.ActionLink("Dodaj u košaru", "AddToCart", "Cart", new { id = item.Id }, "")
-        </td>
-    </tr>
+@if (!String.IsNullOrEmpty(porukaa))
+{
+    <body onload="pokaziAlert('@porukaa')">
+    </body>
 }
 
-</table>
+<h2>Pića</h2>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+    /* Create two equal columns that floats next to each other */
+    .column {
+        float: left;
+        width: 50%;
+        padding: 10px;
+    }
+    /* Clear floats after the columns */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+    /* Style the buttons */
+    .btn2 {
+        border: none;
+        outline: none;
+        padding: 12px 16px;
+        background-color: #f1f1f1;
+        cursor: pointer;
+    }
+
+        .btn2:hover {
+            background-color: #ddd;
+        }
+
+        .btn2.active {
+            background-color: #666;
+            color: white;
+        }
+</style>
+
+
+<div id="btnContainer">
+    <button class="btn btn2" onclick="listView()"><i class="fa fa-bars"></i> Lista</button>
+    <button class="btn btn2 active" onclick="gridView()"><i class="fa fa-th-large"></i> Rešetke</button>
+</div>
+<br>
+<input type="hidden" id="poruka" value="@ViewBag.Poruka" />
+
+@foreach (var item in Model)
+{
+    <div class="column" style="background-color:rgba(170, 170, 170, 0.28); height:270px;">
+        <div style="float:left; width: 40%;">
+            @Html.ActionLink(item.Name, "Details", new { id = item.Id }, new { @class = "h3" })
+            <p>@Html.DisplayFor(modelItem => item.Description)</p>
+            <p>@Html.DisplayFor(modelItem => item.Category.Name)</p>
+            @Html.ActionLink("Dodaj u košaru", "AddToCart", "Cart", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary" })
+        </div>
+        <div style="float:right; width: 60%; text-align:center;">
+            <img src="~/img/products/@item.ImageUrl" style="height:250px" />
+        </div>
+    </div>
+
+}
+
+
+<script>
+    // Get the elements with class="column"
+    var elements = document.getElementsByClassName("column");
+    // Declare a loop variable
+    var i;
+    // List View
+    function listView() {
+        for (i = 0; i < elements.length; i++) {
+            elements[i].style.width = "100%";
+        }
+    }
+    // Grid View
+    function gridView() {
+        for (i = 0; i < elements.length; i++) {
+            elements[i].style.width = "50%";
+        }
+    }
+    /* Optional: Add active class to the current button (highlight it) */
+    var container = document.getElementById("btnContainer");
+    var btns = container.getElementsByClassName("btn");
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function () {
+            var current = document.getElementsByClassName("active");
+            current[0].className = current[0].className.replace(" active", "");
+            this.className += " active";
+        });
+    }
+</script>
+
+<script>
+    function pokaziAlert(poruka) {
+        alert(poruka);
+    }
+</script>

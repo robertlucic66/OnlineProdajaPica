@@ -41,18 +41,23 @@ namespace OnlineProdajaPica.Controllers
         {
             var productToAdd = _context.Products.Single(p => p.Id == id);
             kosarica = (List<Product>)Session["Cart"];
+            string poruka;
             if (kosarica.Exists(p => p.Id == productToAdd.Id))
             {
                 var productInCart = kosarica.Single(p => p.Id == productToAdd.Id);
                 productInCart.Quantity += 1;
+                poruka = productInCart.Name + " dodan u košaricu, količina = " + productInCart.Quantity;
+                TempData["Poruka"] = poruka;
             }
             else
             {
                 productToAdd.Quantity += 1;
                 kosarica.Add(productToAdd);
+                poruka = productToAdd.Name + " dodan u košaricu, količina = " + productToAdd.Quantity;
+                TempData["Poruka"] = poruka;
             }
             Session["Cart"] = kosarica;
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Products");
         }
 
         public ActionResult RemoveFromCart(int? id)
