@@ -204,6 +204,10 @@
     <Compile Include="Migrations\202109071346485_ordersVM.Designer.cs">
       <DependentUpon>202109071346485_ordersVM.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202109101643055_dodanPropertyDostavljeno.cs" />
+    <Compile Include="Migrations\202109101643055_dodanPropertyDostavljeno.Designer.cs">
+      <DependentUpon>202109101643055_dodanPropertyDostavljeno.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -319,6 +323,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202109071346485_ordersVM.resx">
       <DependentUpon>202109071346485_ordersVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109101643055_dodanPropertyDostavljeno.resx">
+      <DependentUpon>202109101643055_dodanPropertyDostavljeno.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

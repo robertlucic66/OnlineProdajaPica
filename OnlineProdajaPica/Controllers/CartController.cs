@@ -100,7 +100,8 @@ namespace OnlineProdajaPica.Controllers
                 Proizvodi = String.Join(",", productList),
                 Kolicine = String.Join(",", quantityList),
                 UserId = User.Identity.GetUserId(),
-                DatumNarudzbe = DateTime.Now
+                DatumNarudzbe = DateTime.Now,
+                Dostavljeno = false
             };
 
             _context.Orders.Add(order);

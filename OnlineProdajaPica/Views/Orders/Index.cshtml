@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
+    string boja;
 }
 
 <h2>Narudžbe</h2>
@@ -22,7 +23,15 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
+    if(item.Dostavljeno == true)
+    {
+        boja = "#6AF538";
+    }
+    else
+    {
+        boja = "#F5D26A";
+    }
+    <tr style="background-color:@boja">
         <td>
             @Html.DisplayFor(modelItem => item.Username)
         </td>
@@ -36,7 +45,8 @@
             @Html.DisplayFor(modelItem => item.DatumNarudzbe)
         </td>
         <td>
-            @Html.ActionLink("Opširnije", "Details", new { id=item.Id }) 
+            @Html.ActionLink("Opširnije", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Označi kao dostavljeno", "MarkAsDelivered", new { id=item.Id})
         </td>
     </tr>
 }

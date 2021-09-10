@@ -18,5 +18,7 @@ namespace OnlineProdajaPica.Models
         public string UserId { get; set; }
 
         public DateTime? DatumNarudzbe { get; set; }
+
+        public bool Dostavljeno { get; set; }
     }
 }

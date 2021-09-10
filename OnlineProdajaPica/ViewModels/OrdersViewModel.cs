@@ -13,11 +13,13 @@ namespace OnlineProdajaPica.ViewModels
 
         public List<Product> Products { get; set; }
         public DateTime? DatumNarudzbe { get; set; }
+        public bool Dostavljeno { get; set; }
 
         public OrdersViewModel(Order order)
         {
             Id = order.Id;
             DatumNarudzbe = order.DatumNarudzbe;
+            Dostavljeno = order.Dostavljeno;
         }
     }
 }

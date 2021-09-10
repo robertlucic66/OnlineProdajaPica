@@ -120,5 +120,25 @@ namespace OnlineProdajaPica.Controllers
                 return Content("Došlo je do greške");
             }
         }
+
+        public ActionResult MarkAsDelivered(int? id)
+        {
+            if (id < 1)
+            {
+                return Content("Neispravan ID");
+            }
+            try
+            {
+                var order = _context.Orders.Single(o => o.Id == id);
+                order.Dostavljeno = true;
+                _context.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return Content("Došlo je do greške");
+            }
+        }
     }
 }
