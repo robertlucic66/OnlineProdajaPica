@@ -7,7 +7,7 @@
 <h2>Narudžba ID: @Model.Id</h2>
 
 <div>
-    <h4>Narudžbu poslao/la: @Model.Username</h4>
+    <h4>Narudžbu poslao/la: <b>@Model.Username</b></h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -40,14 +40,22 @@
         <th>Naziv proizvoda</th>
         <th>Količina</th>
     </tr>
-@foreach (var item in Model.Products)
-{
-    <tr>
-        <td>@item.Name</td>
-        <td>@item.Quantity</td>
-    </tr>
-}
+    @foreach (var item in Model.Products)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Quantity</td>
+        </tr>
+    }
 </table>
+
+@if (Model.Dostavljeno == false)
+{
+<div class="text-center">
+    @Html.ActionLink("Označi kao dostavljeno", "MarkAsDelivered", new { id = Model.Id }, new { @class = "btn btn-default"})
+</div>
+    
+}
 
 <p>
     @Html.ActionLink("Sve narudžbe", "Index")

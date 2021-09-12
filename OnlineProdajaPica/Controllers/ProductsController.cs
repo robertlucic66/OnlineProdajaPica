@@ -126,7 +126,7 @@ namespace OnlineProdajaPica.Controllers
 
         }
 
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
             if (id < 1)
             {
@@ -145,6 +145,7 @@ namespace OnlineProdajaPica.Controllers
             }
         }
 
+        [AllowAnonymous]
         public ActionResult Details(int? id)
         {
             if (id < 1)

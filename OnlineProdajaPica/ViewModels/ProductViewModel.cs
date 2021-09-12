@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -25,6 +26,10 @@ namespace OnlineProdajaPica.ViewModels
         [Required]
         public int CategoryId { get; set; }
 
+        [Required]
+        [Column(TypeName = "money")]
+        public decimal Price { get; set; }
+
         public string ImageUrl { get; set; }
 
         public ProductViewModel()
@@ -40,6 +45,7 @@ namespace OnlineProdajaPica.ViewModels
             NumberInStock = product.NumberInStock;
             CategoryId = product.CategoryId;
             ImageUrl = product.ImageUrl;
+            Price = product.Price;
         }
     }
 }
