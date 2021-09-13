@@ -10,7 +10,7 @@
 @if (!Model.Any())
 {
     <h3 style="color:red">Košarica je prazna...</h3>
-    @Html.ActionLink("Dodaj proizvode", "Index", "Products", "", new { @class = "btn btn-primary"})
+    @Html.ActionLink("Dodaj proizvode", "Index", "Products", "", new { @class = "btn btn-primary" })
 }
 else
 {
@@ -30,6 +30,7 @@ else
 
         @foreach (var item in Model)
         {
+
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
@@ -37,9 +38,19 @@ else
                 <td>
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Quantity)
-                </td>
+                @{ 
+                    string nameofForm = "changeQuantityForm" + item.Id;
+                    string nameofInput = "changeQuantityInput" + item.Id;
+                }
+                 @using (Html.BeginForm("ChangeQuantity", "Cart", new { id=item.Id}, FormMethod.Post, new { @id = nameofForm }))
+                 {
+                     <td>
+                        @*@Html.DisplayFor(modelItem => item.Quantity)*@
+                        <input id="@nameofInput" type="number" min="1" value="@item.Quantity" name="quantity" onchange="myFunction(@item.Id)"/>
+                    </td>
+
+                 }
+                
                 <td>
                     @Html.ActionLink("Izbriši", "RemoveFromCart", new { id = item.Id })
                 </td>
@@ -47,7 +58,20 @@ else
         }
     </table>
 
+
     @Html.ActionLink("Pošalji naružbu", "SendOrder", "", htmlAttributes: new { @class = "btn btn-primary" })
     @Html.ActionLink("Nastavi kupovinu", "Index", "Products", "", new { @class = "btn btn-default" })
 }
 
+<script>
+    function myFunction(id) {
+        var nameofForm = 'changeQuantityForm' + id;
+        var nameofInput = 'changeQuantityInput' + id;
+        var form = document.getElementById(nameofForm);
+        var myInput = document.getElementById(nameofInput);
+
+        if (myInput.value >= 1) {
+            form.submit();
+        } 
+    }
+</script>

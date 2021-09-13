@@ -37,7 +37,16 @@ namespace OnlineProdajaPica.Controllers
             return View(kosarica);
         }
 
-        public ActionResult AddToCart(int? id)
+        public ActionResult ChangeQuantity(int id, int quantity)
+        {
+            kosarica = (List<Product>)Session["Cart"];
+            var product = kosarica.Single(p => p.Id == id);
+            product.Quantity = quantity;
+            Session["Cart"] = kosarica;
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult AddToCart(int? id, int quantity)
         {
             var productToAdd = _context.Products.Single(p => p.Id == id);
             kosarica = (List<Product>)Session["Cart"];
@@ -45,13 +54,13 @@ namespace OnlineProdajaPica.Controllers
             if (kosarica.Exists(p => p.Id == productToAdd.Id))
             {
                 var productInCart = kosarica.Single(p => p.Id == productToAdd.Id);
-                productInCart.Quantity += 1;
+                productInCart.Quantity += quantity;
                 poruka = productInCart.Name + " dodan u košaricu, količina = " + productInCart.Quantity;
                 TempData["Poruka"] = poruka;
             }
             else
             {
-                productToAdd.Quantity += 1;
+                productToAdd.Quantity += quantity;
                 kosarica.Add(productToAdd);
                 poruka = productToAdd.Name + " dodan u košaricu, količina = " + productToAdd.Quantity;
                 TempData["Poruka"] = poruka;
@@ -70,11 +79,7 @@ namespace OnlineProdajaPica.Controllers
             {
                 kosarica = (List<Product>)Session["Cart"];
                 var product = kosarica.Single(p => p.Id == id);
-                product.Quantity -= 1;
-                if (product.Quantity < 1)
-                {
-                    kosarica.Remove(product);
-                }
+                kosarica.Remove(product);
                 Session["Cart"] = kosarica;
                 return RedirectToAction("Index");
             }
