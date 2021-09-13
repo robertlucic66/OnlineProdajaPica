@@ -3,13 +3,16 @@
 @{
     ViewBag.Title = "Index";
     var porukaa = TempData["Poruka"] as string;
-}
+    }
 
 @if (!String.IsNullOrEmpty(porukaa))
 {
     <body onload="pokaziAlert('@porukaa')">
     </body>
 }
+
+
+
 
 <h2>Pića</h2>
 
@@ -58,24 +61,32 @@
 
 @foreach (var item in Model)
 {
-    <div class="column" style="background-color:rgba(170, 170, 170, 0.28); height:270px;">
+    <div onload="getQuantity(@item.Id)" id="div-@item.Id" class="column" style="background-color:rgba(170, 170, 170, 0.28); height:270px;">
         <div style="float:left; width: 40%;">
             @Html.ActionLink(item.Name, "Details", new { id = item.Id }, new { @class = "h3" })
             <p>@Html.DisplayFor(modelItem => item.Description)</p>
             <p>@Html.DisplayFor(modelItem => item.Category.Name)</p>
-            
+
             <div class="price ">
                 <span class="price--kn">@((int)item.Price)</span>
                 <div class="price__ul">
                     @{
-                        int broj = (int)((item.Price - Math.Truncate(item.Price))*100);                      
+                        int broj = (int)((item.Price - Math.Truncate(item.Price)) * 100);
                     }
                     <span class="price--li">@broj</span>
                     <small class="price--c">kn/kom</small>
                 </div>
-            </div> 
+            </div>
+
+
+           <div>
+               <input id="inputQuantity-div-@item.Id" value="1" type="number" name="inputQuantity-div-@item.Id">
+               <span>kom</span>
+           </div>
+
+
             <div>
-                @Html.ActionLink("Dodaj u košaricu", "AddToCart", "Cart", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary" })
+                @Html.ActionLink("Dodaj u košaricu", "AddToCart", "Cart", new { id = item.Id}, htmlAttributes: new { @id="button" + item.Id, @class = "btn btn-primary"})
             </div>
         </div>
         <div style="float:right; width: 60%; text-align:center;">
@@ -120,3 +131,14 @@
         alert(poruka);
     }
 </script>
+
+@*<script>
+    function getQuantity(id, val) {
+        var name1 = "inputQuantity-div-" + id;       
+        var name2 = "button" + id;
+        var x = document.getElementById(name1).value;
+        document.getElementById(name2).value = 7;
+        @quantity = val;
+        alert("prova");
+    }
+</script>*@
