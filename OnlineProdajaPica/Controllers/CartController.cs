@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using OnlineProdajaPica.ViewModels;
 
 namespace OnlineProdajaPica.Controllers
 {
@@ -89,7 +90,37 @@ namespace OnlineProdajaPica.Controllers
             }
         }
 
-        public ActionResult SendOrder()
+        public ActionResult AddCustomerInfo()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddCustomerInfo(CustomerInfo customerInfo)
+        {
+            return RedirectToAction("OrderCheck", customerInfo);
+        }
+
+        public ActionResult OrderCheck(CustomerInfo customerInfo) 
+        {
+            if(customerInfo == null)
+            {
+                return RedirectToAction("AddCustomerInfo");
+            }
+            kosarica = (List<Product>)Session["Cart"];
+
+            OrderCheckViewModel orderCheckVM = new OrderCheckViewModel()
+            {
+                ProductList = kosarica,
+                CustomerInfo = customerInfo
+            };
+
+            return View(orderCheckVM);     
+        }
+
+       
+
+        public ActionResult SendOrder(CustomerInfo customerInfo)
         {
             kosarica = (List<Product>)Session["Cart"];
             List<int> productList = new List<int>();
@@ -111,8 +142,15 @@ namespace OnlineProdajaPica.Controllers
 
             _context.Orders.Add(order);
             _context.SaveChanges();
+
+            customerInfo.UserId = User.Identity.GetUserId().ToString();
+            customerInfo.OrderId = order.Id;
+            _context.CustomerInfos.Add(customerInfo);
+            _context.SaveChanges();
             Session["Cart"] = null;
-            return RedirectToAction("Index");
+
+            return RedirectToAction("Index", "Cart");
         }
+
     }
 }

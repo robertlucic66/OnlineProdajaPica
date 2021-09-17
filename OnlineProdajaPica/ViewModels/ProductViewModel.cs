@@ -32,6 +32,8 @@ namespace OnlineProdajaPica.ViewModels
 
         public string ImageUrl { get; set; }
 
+        public HttpPostedFileBase File {get;set;}
+
         public ProductViewModel()
         {
             Id = 0;

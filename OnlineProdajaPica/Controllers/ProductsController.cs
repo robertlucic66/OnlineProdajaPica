@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using System.IO;
+using System.Drawing;
 
 namespace OnlineProdajaPica.Controllers
 {
@@ -80,9 +81,13 @@ namespace OnlineProdajaPica.Controllers
             {
                 var productToEdit = _context.Products.Single(p => p.Id == id);
                 var categories = _context.Categories.ToList();
+                var filename = Path.GetFileName(productToEdit.ImageUrl);
+
+                
                 var viewModel = new ProductViewModel(productToEdit)
                 {
-                    Categories = categories
+                    Categories = categories,
+                   
                 };
 
                 return View(viewModel);
@@ -113,6 +118,10 @@ namespace OnlineProdajaPica.Controllers
                 {
                     updatedProduct.ImageUrl = updatedProduct.Id + "-" + Path.GetFileName(file.FileName);
                     file.SaveAs(Server.MapPath("//img/products//") + updatedProduct.ImageUrl);
+                }
+                else
+                {
+                    updatedProduct.ImageUrl = productToEdit.ImageUrl;
                 }
 
                 _context.Entry(productToEdit).CurrentValues.SetValues(updatedProduct);

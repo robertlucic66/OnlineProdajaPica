@@ -1,10 +1,10 @@
-﻿@model OnlineProdajaPica.ViewModels.OrdersViewModel
+﻿@model OnlineProdajaPica.ViewModels.OrderDetailsViewModel
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Narudžba ID: @Model.Id</h2>
+<h2>Narudžba ID: @Model.Order.Id</h2>
 
 <div>
     <h4>Narudžbu poslao/la: <b>@Model.Username</b></h4>
@@ -14,7 +14,7 @@
             User ID
         </dt>
         <dd>
-            @ViewBag.UserId
+            @Model.CustomerInfo.UserId
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Username)
@@ -29,7 +29,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DatumNarudzbe)
+            @Html.DisplayFor(model => model.Order.DatumNarudzbe)
         </dd>
 
     </dl>
@@ -49,10 +49,10 @@
     }
 </table>
 
-@if (Model.Dostavljeno == false)
+@if (Model.Order.Dostavljeno == false)
 {
 <div class="text-center">
-    @Html.ActionLink("Označi kao dostavljeno", "MarkAsDelivered", new { id = Model.Id }, new { @class = "btn btn-default"})
+    @Html.ActionLink("Označi kao dostavljeno", "MarkAsDelivered", new { id = Model.Order.Id }, new { @class = "btn btn-default"})
 </div>
     
 }

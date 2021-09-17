@@ -50,6 +50,14 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input id="Price" class="form-control text-box single-line" type="text" name="Price" value="@Model.Price" />
+                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(model=>model.ImageUrl, "Slika", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <input type="file" id="file" name="file" class="form-control" />

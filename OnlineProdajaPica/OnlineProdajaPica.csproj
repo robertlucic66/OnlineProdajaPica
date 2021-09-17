@@ -212,15 +212,30 @@
     <Compile Include="Migrations\202109121553337_dodanPriceProperty.Designer.cs">
       <DependentUpon>202109121553337_dodanPriceProperty.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202109152235437_dodanOrderDeatilModel.cs" />
+    <Compile Include="Migrations\202109152235437_dodanOrderDeatilModel.Designer.cs">
+      <DependentUpon>202109152235437_dodanOrderDeatilModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109152245269_deletedOrderDeatialModel.cs" />
+    <Compile Include="Migrations\202109152245269_deletedOrderDeatialModel.Designer.cs">
+      <DependentUpon>202109152245269_deletedOrderDeatialModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109152322534_dodanCustomerInfoModel.cs" />
+    <Compile Include="Migrations\202109152322534_dodanCustomerInfoModel.Designer.cs">
+      <DependentUpon>202109152322534_dodanCustomerInfoModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\CustomerInfo.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\OrderCheckViewModel.cs" />
+    <Compile Include="ViewModels\OrderDetailsViewModel.cs" />
     <Compile Include="ViewModels\OrdersViewModel.cs" />
     <Compile Include="ViewModels\ProductViewModel.cs" />
   </ItemGroup>
@@ -288,6 +303,8 @@
     <Content Include="Views\Orders\Index.cshtml" />
     <Content Include="Views\Orders\Details.cshtml" />
     <Content Include="Views\Products\AdminView.cshtml" />
+    <Content Include="Views\Cart\AddCustomerInfo.cshtml" />
+    <Content Include="Views\Cart\OrderCheck.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -333,6 +350,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202109121553337_dodanPriceProperty.resx">
       <DependentUpon>202109121553337_dodanPriceProperty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109152235437_dodanOrderDeatilModel.resx">
+      <DependentUpon>202109152235437_dodanOrderDeatilModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109152245269_deletedOrderDeatialModel.resx">
+      <DependentUpon>202109152245269_deletedOrderDeatialModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109152322534_dodanCustomerInfoModel.resx">
+      <DependentUpon>202109152322534_dodanCustomerInfoModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -21,6 +21,9 @@
             @Html.DisplayNameFor(model => model.NumberInStock)
         </th>
         <th>
+            @Html.DisplayNameFor(model=>model.Price)
+        </th>
+        <th>
             Slika
         </th>
         <th></th>
@@ -37,6 +40,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.NumberInStock)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price) kn
             </td>
             <td>
                 <img src="~/img/products/@item.ImageUrl" style="height:50px" />

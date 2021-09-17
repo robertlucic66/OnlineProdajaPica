@@ -1,0 +1,94 @@
+﻿@model OnlineProdajaPica.ViewModels.OrderCheckViewModel
+
+@{
+    ViewBag.Title = "OrderCheck";
+}
+
+<h2>Provjera podataka</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+    </dl>
+</div>
+
+@using (Html.BeginForm("SendOrder", "Cart", FormMethod.Post))
+{
+
+
+<table class="table">
+    <tr>
+        <th>
+            Naziv proizvoda
+        </th>
+        <th>
+
+        </th>
+        <th>
+            Količina
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.ProductList)
+    {
+        <tr>
+            <td>
+                @item.Name
+            </td>
+            <td>
+                @item.Description
+            </td>
+            <td>
+                @item.Quantity
+            </td>
+        </tr>
+    }
+</table>
+
+<dl class="dl-horizontal">
+    <dt>
+        Ime i prezime
+    </dt>
+    <dd>
+        @Model.CustomerInfo.Name
+    </dd>
+    <dt>
+        Broj telefona
+    </dt>
+    <dd>
+        @Model.CustomerInfo.PhoneNumber
+    </dd>
+    <dt>
+        Poštanski broj
+    </dt>
+    <dd>
+        @Model.CustomerInfo.PostNumber
+    </dd>
+    <dt>
+        Grad
+    </dt>
+    <dd>
+        @Model.CustomerInfo.City
+    </dd>
+    <dt>
+        Država
+    </dt>
+    <dd>
+        @Model.CustomerInfo.Country
+    </dd>
+    <dt>
+        Adresa
+    </dt>
+    <dd>
+        @Model.CustomerInfo.Address
+    </dd>
+
+</dl>
+
+
+
+<button type="submit" class="btn btn-success">Pošalji narudžbu</button>
+@Html.ActionLink("Nazad", "AddCustomerInfo", "", new { @class = "btn btn-default" })
+
+}
