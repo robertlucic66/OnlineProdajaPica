@@ -224,6 +224,10 @@
     <Compile Include="Migrations\202109152322534_dodanCustomerInfoModel.Designer.cs">
       <DependentUpon>202109152322534_dodanCustomerInfoModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202109171904249_izmjeneCustomerInfoModel.cs" />
+    <Compile Include="Migrations\202109171904249_izmjeneCustomerInfoModel.Designer.cs">
+      <DependentUpon>202109171904249_izmjeneCustomerInfoModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -359,6 +363,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202109152322534_dodanCustomerInfoModel.resx">
       <DependentUpon>202109152322534_dodanCustomerInfoModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109171904249_izmjeneCustomerInfoModel.resx">
+      <DependentUpon>202109171904249_izmjeneCustomerInfoModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

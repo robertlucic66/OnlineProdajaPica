@@ -24,6 +24,7 @@ namespace OnlineProdajaPica.Controllers
         {
             _context.Dispose();
         }
+
         // GET: Orders
         public ActionResult Index()
         {
@@ -78,61 +79,45 @@ namespace OnlineProdajaPica.Controllers
 
         public ActionResult Details(int? id)
         {
-            //if (id < 1)
-            //{
-            //    return Content("Nesipravan ID");
-            //}
-            //try
-            //{
-            //    var order = _context.Orders.Single(o => o.Id == id);
-
-            //    OrdersViewModel orderVM = new OrdersViewModel(order)
-            //    {
-            //        Products = productList,
-            //        Username = _identityContext.Users.Single(u => u.Id == order.UserId).UserName
-            //    };
-            //    ViewBag.UserId = order.UserId;
-
-            //    return View(orderVM);
-            //}
-            //catch
-            //{
-            //    return Content("Došlo je do greške");
-            //}
-
-            Order order = _context.Orders.Single(o => o.Id == id);
-
-            string[] nizProducta = order.Proizvodi.Split(',');
-            string[] nizKolicina = order.Kolicine.Split(',');
-            List<int> nizProductaInt = new List<int>();
-            List<int> nizKolicinaInt = new List<int>();
-            foreach (var product in nizProducta)
+            try
             {
-                nizProductaInt.Add(Int32.Parse(product));
+                Order order = _context.Orders.Single(o => o.Id == id);
+
+                string[] nizProducta = order.Proizvodi.Split(',');
+                string[] nizKolicina = order.Kolicine.Split(',');
+                List<int> nizProductaInt = new List<int>();
+                List<int> nizKolicinaInt = new List<int>();
+                foreach (var product in nizProducta)
+                {
+                    nizProductaInt.Add(Int32.Parse(product));
+                }
+                foreach (var kolicina in nizKolicina)
+                {
+                    nizKolicinaInt.Add(Int32.Parse(kolicina));
+                }
+                List<Product> productList = new List<Product>();
+                foreach (var item in nizProductaInt)
+                {
+                    var product = _context.Products.Single(p => p.Id == item);
+                    var index = nizProductaInt.IndexOf(item);
+                    product.Quantity = nizKolicinaInt[index];
+                    productList.Add(product);
+                }
+                CustomerInfo customerInfo = _context.CustomerInfos.Single(c => c.OrderId == id);
+                OrderDetailsViewModel orderVM = new OrderDetailsViewModel()
+                {
+                    Order = order,
+                    CustomerInfo = customerInfo,
+                    Username = _identityContext.Users.Single(u => u.Id == order.UserId).UserName,
+                    Products = productList
+                };
+                return View(orderVM);
             }
-            foreach (var kolicina in nizKolicina)
+            catch
             {
-                nizKolicinaInt.Add(Int32.Parse(kolicina));
+                return Content("Došlo je do greške");
             }
-            List<Product> productList = new List<Product>();
-            foreach (var item in nizProductaInt)
-            {
-                var product = _context.Products.Single(p => p.Id == item);
-                var index = nizProductaInt.IndexOf(item);
-                product.Quantity = nizKolicinaInt[index];
-                productList.Add(product);
-            }
-            CustomerInfo customerInfo = _context.CustomerInfos.Single(c => c.OrderId == id);
-            OrderDetailsViewModel orderVM = new OrderDetailsViewModel()
-            {
-                Order = order,
-                CustomerInfo = customerInfo,
-                Username = _identityContext.Users.Single(u => u.Id == order.UserId).UserName,
-                Products = productList
-            };
-            return View(orderVM);
-
-
+            
         }
 
         public ActionResult MarkAsDelivered(int? id)

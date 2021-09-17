@@ -23,7 +23,41 @@
         <dd>
             @Html.DisplayFor(model => model.Username)
         </dd>
+        <dt>
+            Ime i prezime
+        </dt>
 
+        <dd>
+            @Html.DisplayFor(model => model.CustomerInfo.Name)
+        </dd>
+        <dt>
+            Država
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomerInfo.Country)
+        </dd>
+        <dt>
+            Adresa
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomerInfo.Address)
+        </dd>
+        <dt>
+            Grad
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomerInfo.City)
+        </dd>
+        <dt>
+            Poštanski broj
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomerInfo.PostalCode)
+        </dd>
         <dt>
             Vrijeme narudžbe
         </dt>
@@ -31,6 +65,17 @@
         <dd>
             @Html.DisplayFor(model => model.Order.DatumNarudzbe)
         </dd>
+        <dt>
+            Status
+        </dt>
+        @if(Model.Order.Dostavljeno == true)
+        {
+            <dd>Dostavljeno</dd>
+        }
+        else
+        {
+            <dd>Nije dostavljeno</dd>
+        }
 
     </dl>
 </div>

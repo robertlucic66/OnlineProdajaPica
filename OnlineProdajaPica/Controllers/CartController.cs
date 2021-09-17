@@ -92,6 +92,11 @@ namespace OnlineProdajaPica.Controllers
 
         public ActionResult AddCustomerInfo()
         {
+            kosarica = (List<Product>)Session["Cart"];
+            if (kosarica.Count < 1)
+            {
+                return RedirectToAction("Index");
+            }
             return View();
         }
 
@@ -103,7 +108,7 @@ namespace OnlineProdajaPica.Controllers
 
         public ActionResult OrderCheck(CustomerInfo customerInfo) 
         {
-            if(customerInfo == null)
+            if(customerInfo.Name == null)
             {
                 return RedirectToAction("AddCustomerInfo");
             }
@@ -114,15 +119,22 @@ namespace OnlineProdajaPica.Controllers
                 ProductList = kosarica,
                 CustomerInfo = customerInfo
             };
+            Session["CustomerInfo"] = customerInfo;
 
             return View(orderCheckVM);     
         }
 
-       
-
         public ActionResult SendOrder(CustomerInfo customerInfo)
         {
             kosarica = (List<Product>)Session["Cart"];
+            if (kosarica.Count < 1)
+            {
+                return RedirectToAction("Index");
+            }
+            if(customerInfo.Name == null)
+            {
+                return RedirectToAction("AddCustomerInfo");
+            }
             List<int> productList = new List<int>();
             List<int> quantityList = new List<int>();
             foreach (var item in kosarica)
@@ -147,6 +159,7 @@ namespace OnlineProdajaPica.Controllers
             customerInfo.OrderId = order.Id;
             _context.CustomerInfos.Add(customerInfo);
             _context.SaveChanges();
+            Session["CustomerInfo"] = null;
             Session["Cart"] = null;
 
             return RedirectToAction("Index", "Cart");
