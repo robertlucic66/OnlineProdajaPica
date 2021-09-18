@@ -85,7 +85,7 @@
                 </div>
             </div>
 
-            @using (Html.BeginForm("AddToCart", "Cart", new { id=item.Id}, FormMethod.Post))
+            @using (Html.BeginForm("AddToCart", "Cart", new { id=item.Id}, FormMethod.Get))
             {
                 <div style="text-align:center; padding:10px">
                     <input id="quantity" name="quantity" type="number" value="1" min="1" >

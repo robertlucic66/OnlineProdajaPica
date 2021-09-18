@@ -31,10 +31,12 @@ namespace OnlineProdajaPica.Controllers
             if (Session["Cart"] != null)
             {
                 kosarica = (List<Product>)Session["Cart"];
+                Session["CartItems"] = kosarica.Count;
                 return View(kosarica);
             }
             kosarica = new List<Product>();
             Session["Cart"] = kosarica;
+            Session["CartItems"] = kosarica.Count;
             return View(kosarica);
         }
 
@@ -47,27 +49,38 @@ namespace OnlineProdajaPica.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult AddToCart(int? id, int quantity)
+        [Route("AddToCart")]
+        public ActionResult AddToCart(int? id, int? quantity)
         {
+            if (id == null)
+                return RedirectToAction("Index", "Products");
+            if (quantity == null)
+                return RedirectToAction("Index", "Products");
             var productToAdd = _context.Products.Single(p => p.Id == id);
             kosarica = (List<Product>)Session["Cart"];
             string poruka;
             if (kosarica.Exists(p => p.Id == productToAdd.Id))
             {
                 var productInCart = kosarica.Single(p => p.Id == productToAdd.Id);
-                productInCart.Quantity += quantity;
+                productInCart.Quantity += (int)quantity;
                 poruka = productInCart.Name + " dodan u košaricu, količina = " + productInCart.Quantity;
                 TempData["Poruka"] = poruka;
             }
             else
             {
-                productToAdd.Quantity += quantity;
+                productToAdd.Quantity += (int)quantity;
                 kosarica.Add(productToAdd);
                 poruka = productToAdd.Name + " dodan u košaricu, količina = " + productToAdd.Quantity;
                 TempData["Poruka"] = poruka;
             }
             Session["Cart"] = kosarica;
+            Session["CartItems"] = kosarica.Count;
             return RedirectToAction("Index", "Products");
+        }
+
+        public string Proba(string ime, string prezime)
+        {
+            return (ime + " " + prezime);
         }
 
         public ActionResult RemoveFromCart(int? id)
@@ -82,6 +95,7 @@ namespace OnlineProdajaPica.Controllers
                 var product = kosarica.Single(p => p.Id == id);
                 kosarica.Remove(product);
                 Session["Cart"] = kosarica;
+                Session["CartItems"] = kosarica.Count;
                 return RedirectToAction("Index");
             }
             catch
@@ -161,6 +175,7 @@ namespace OnlineProdajaPica.Controllers
             _context.SaveChanges();
             Session["CustomerInfo"] = null;
             Session["Cart"] = null;
+            Session["CartItems"] = null;
 
             return RedirectToAction("Index", "Cart");
         }

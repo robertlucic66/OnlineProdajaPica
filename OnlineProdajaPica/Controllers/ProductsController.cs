@@ -15,10 +15,12 @@ namespace OnlineProdajaPica.Controllers
     public class ProductsController : Controller
     {
         private ApplicationDbContext _context;
+        public List<Product> kosarica;
 
         public ProductsController()
         {
             _context = new ApplicationDbContext();
+            kosarica = new List<Product>();
         }
         protected override void Dispose(bool disposing)
         {
@@ -31,9 +33,13 @@ namespace OnlineProdajaPica.Controllers
         {
             if (Session["Cart"] == null)
             {
-                List<Product> kosarica = new List<Product>();
                 Session["Cart"] = kosarica;
             }
+            else
+            {
+                kosarica = (List<Product>)Session["Cart"];
+            }
+            Session["CartItems"] = kosarica.Count;
             var productList = _context.Products.Include(p=>p.Category).ToList();
             if (User.IsInRole("Admin"))
                 return View("AdminView", productList);

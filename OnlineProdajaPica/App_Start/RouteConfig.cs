@@ -18,6 +18,12 @@ namespace OnlineProdajaPica
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "AddToCart",
+                url: "cart/addtocart/{id}/{quantity}",
+                defaults: new { controller = "Cart", action = "AddToCart", id = UrlParameter.Optional }
+                );
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OnlineProdajaPica.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +9,24 @@ namespace OnlineProdajaPica.Controllers
 {
     public class HomeController : Controller
     {
+        public List<Product> kosarica;
+        public HomeController()
+        {
+            kosarica = new List<Product>();
+        }
         public ActionResult Index()
         {
+            if(Session["Cart"] == null)
+            {
+                Session["Cart"] = kosarica;
+            }
+            else
+            {
+                kosarica = (List<Product>)Session["Cart"];
+            }
+            Session["CartItems"] = kosarica.Count;
             return View();
+
         }
 
         public ActionResult About()

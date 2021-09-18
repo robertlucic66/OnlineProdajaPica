@@ -22,7 +22,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Pića", "Index", "Products")</li>
-                    <li>@Html.ActionLink("Košarica", "Index", "Cart")</li>
+                    <li>@Html.ActionLink("Košarica (" + Session["CartItems"] + ")", "Index", "Cart")</li>
                     <li>@Html.ActionLink("Narudžbe", "Index", "Orders")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
