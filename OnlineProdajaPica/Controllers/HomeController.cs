@@ -4,16 +4,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace OnlineProdajaPica.Controllers
 {
     public class HomeController : Controller
     {
         public List<Product> kosarica;
+        public ApplicationDbContext _context;
         public HomeController()
         {
             kosarica = new List<Product>();
+            _context = new ApplicationDbContext();
         }
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
+
         public ActionResult Index()
         {
             if(Session["Cart"] == null)
@@ -25,7 +33,8 @@ namespace OnlineProdajaPica.Controllers
                 kosarica = (List<Product>)Session["Cart"];
             }
             Session["CartItems"] = kosarica.Count;
-            return View();
+            var productList = _context.Products.Include(p => p.Category).ToList();
+            return View(productList);
 
         }
 

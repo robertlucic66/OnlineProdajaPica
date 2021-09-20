@@ -1,8 +1,37 @@
-﻿@{
+﻿@model IEnumerable<OnlineProdajaPica.Models.Product>
+@{
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+</head>
+
+<style>
+    .swiper {
+        width: 100%;
+        height: 250px;
+        padding:10px;
+    }
+
+    .swiper-slide {
+        text-align: center;
+        width: 33%;
+        margin-right:0px;
+    }
+
+    .swiper-slide-active{
+        margin-left:20px;
+        margin-right:0px;
+    }
+
+    .swiper-slide-next{
+        margin-right:0px;
+    }
+    
+</style>
+
+@*<div class="jumbotron">
     <h1>ASP.NET</h1>
     <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
     <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
@@ -28,4 +57,79 @@
         <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
         <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
     </div>
+</div>*@
+
+<div id="pivo-swiper">
+    <div class="swiper mySwiper swiper-initialized swiper-horizontal swiper-pointer-events">
+        <div class="swiper-wrapper" id="swiper-wrapper-20912caf49a53244" aria-live="polite" style="transition-duration: 0ms; transform: translate3d(-1266px, 0px, 0px);">
+            @{ var index = 0; }
+
+            @foreach (var item in Model)
+            {
+                if(item.Category.Name == "Pivo")
+                {
+                    var label = (index + 1);
+                    <div class="swiper-slide" data-swiper-slide-index="@index" role="group" aria-label="@label / @Model.Count()" style="margin-right:0px;">
+                        <div>
+                            <div style="text-align:center; padding-top:10px; width:30%; float:left">
+                                <img src="~/img/products/@item.ImageUrl" style="height:200px; margin-left:0px;" />
+                            </div>
+                            <div style="padding-top:10px; width:70%; float:right;">
+                                <div class="pull-left" style="text-align:center;">
+                                    <div style="padding-top:10px; margin-top:20px">
+                                        @Html.ActionLink(item.Name, "Details", "Products", new { id = item.Id }, new { @class = "h3" })
+                                    </div>
+                                    <div style="display:block; padding-top:10px;">
+                                        <div class="price ">
+                                            <span class="price--kn">@((int)item.Price)</span>
+                                            <div class="price__ul">
+                                                @{ int broj = (int)((item.Price - Math.Truncate(item.Price)) * 100); }
+                                                <span class="price--li">@broj</span>
+                                                <small class="price--c">kn/kom</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @Html.ActionLink("Dodaj", "Details", "Products", new { id = item.Id }, new { @class = "btn btn-success" })
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div>
+                            
+
+                          
+                        </div>
+                        
+                    </div>
+                    index += 1;
+                }            
+            }
+
+        </div>
+        <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-20912caf49a53244"></div>
+        <div class="swiper-button-prev" tabindex="0" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-20912caf49a53244"></div>
+        <div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal"><span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 3"></span></div>
+        <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+    </div>
 </div>
+
+
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+<script>
+    var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 3,
+        spaceBetween: 30,
+        slidesPerGroup: 3,
+        loop: true,
+        loopFillGroupWithBlank: true,
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+    });
+</script>
