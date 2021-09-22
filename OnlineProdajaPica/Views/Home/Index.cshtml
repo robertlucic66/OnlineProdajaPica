@@ -21,7 +21,6 @@
     }
 
     .swiper-slide-active{
-        margin-left:20px;
         margin-right:0px;
     }
 
@@ -71,15 +70,15 @@
                     var label = (index + 1);
                     <div class="swiper-slide" data-swiper-slide-index="@index" role="group" aria-label="@label / @Model.Count()" style="margin-right:0px;">
                         <div>
-                            <div style="text-align:center; padding-top:10px; width:30%; float:left">
-                                <img src="~/img/products/@item.ImageUrl" style="height:200px; margin-left:0px;" />
+                            <div style="text-align:center; margin-top:10px; width:50%; float:left; max-width:100px; height:200px; display: flex; justify-content: center; align-items: center;">
+                                <img src="~/img/products/@item.ImageUrl" style="width:100%"/>
                             </div>
-                            <div style="padding-top:10px; width:70%; float:right;">
-                                <div class="pull-left" style="text-align:center;">
-                                    <div style="padding-top:10px; margin-top:20px">
-                                        @Html.ActionLink(item.Name, "Details", "Products", new { id = item.Id }, new { @class = "h3" })
+                            <div class="pull-left" style="padding-top:10px; width:50%; float:right;">
+                                <div style="text-align:center;">
+                                    <div style="padding-top:10px; margin-top:10px; height:60px">
+                                        @Html.ActionLink(item.Name, "Details", "Products", new { id = item.Id }, new { @class = "h4" })
                                     </div>
-                                    <div style="display:block; padding-top:10px;">
+                                    <div style="display:block; padding-top:10px; padding-bottom:10px">
                                         <div class="price ">
                                             <span class="price--kn">@((int)item.Price)</span>
                                             <div class="price__ul">
@@ -114,7 +113,7 @@
 </div>
 
 
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="https://unpkg.com/swiper@7.0.6/swiper-bundle.min.js"></script>
 
 <script>
     var swiper = new Swiper(".mySwiper", {

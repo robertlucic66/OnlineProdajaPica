@@ -57,6 +57,10 @@ namespace OnlineProdajaPica.Controllers
             if (quantity == null)
                 return RedirectToAction("Index", "Products");
             var productToAdd = _context.Products.Single(p => p.Id == id);
+            if(Session["Cart"] == null)
+            {
+                Session["Cart"] = kosarica;
+            }
             kosarica = (List<Product>)Session["Cart"];
             string poruka;
             if (kosarica.Exists(p => p.Id == productToAdd.Id))

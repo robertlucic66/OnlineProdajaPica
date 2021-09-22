@@ -15,6 +15,7 @@ namespace OnlineProdajaPica.Models
         [Required]
         public string Name { get; set; }
 
+        [Display(Name="Neto količina")]
         public string Description { get; set; }
 
         [Required]

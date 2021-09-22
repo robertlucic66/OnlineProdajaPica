@@ -53,7 +53,7 @@
         background: none;
         color: red;
         border: none;
-        width:30%;
+        width:50px;
         font-size:24px;
     }
 </style>
@@ -68,7 +68,7 @@
 
 @foreach (var item in Model)
 {
-    <div onload="getQuantity(@item.Id)" id="div-@item.Id" class="column" style="background-color:rgba(170, 170, 170, 0.28); height:270px;">
+    <div id="div-@item.Id" class="column" style="background-color:rgba(170, 170, 170, 0.28); height:270px;">
         <div style="float:left; width: 40%;">
             @Html.ActionLink(item.Name, "Details", new { id = item.Id }, new { @class = "h3" })
             <p>@Html.DisplayFor(modelItem => item.Description)</p>
