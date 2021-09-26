@@ -155,8 +155,10 @@ namespace OnlineProdajaPica.Controllers
             }
             List<int> productList = new List<int>();
             List<int> quantityList = new List<int>();
+            decimal totalPrice = 0;
             foreach (var item in kosarica)
             {
+                totalPrice += (item.Price * item.Quantity);
                 productList.Add(item.Id);
                 quantityList.Add(item.Quantity);
             }
@@ -167,7 +169,8 @@ namespace OnlineProdajaPica.Controllers
                 Kolicine = String.Join(",", quantityList),
                 UserId = User.Identity.GetUserId(),
                 DatumNarudzbe = DateTime.Now,
-                Dostavljeno = false
+                Dostavljeno = false,
+                UkupnaCijena = totalPrice
             };
 
             _context.Orders.Add(order);

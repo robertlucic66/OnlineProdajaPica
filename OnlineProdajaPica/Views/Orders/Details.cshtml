@@ -94,14 +94,16 @@
     }
 </table>
 
+<h4>Ukupno: @Model.Order.UkupnaCijena.ToString("0.00") kn</h4>
+
 @if (Model.Order.Dostavljeno == false)
 {
 <div class="text-center">
-    @Html.ActionLink("Označi kao dostavljeno", "MarkAsDelivered", new { id = Model.Order.Id }, new { @class = "btn btn-default"})
+    @Html.ActionLink("Označi kao dostavljeno", "MarkAsDelivered", new { id = Model.Order.Id }, new { @class = "btn btn-success"})
 </div>
     
 }
 
 <p>
-    @Html.ActionLink("Sve narudžbe", "Index")
+    @Html.ActionLink("Sve narudžbe", "Index", new { id = Model.Order.Id }, new { @class = "btn btn-default" })
 </p>

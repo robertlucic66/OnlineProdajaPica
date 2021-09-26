@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "OrderCheck";
+    decimal total = 0;
 }
 
 <h2>Provjera podataka</h2>
@@ -28,6 +29,7 @@
 
     @foreach (var item in Model.ProductList)
     {
+        total += (item.Price * item.Quantity);
         <tr>
             <td>
                 @item.Name
@@ -41,6 +43,9 @@
         </tr>
     }
 </table>
+
+<h4>Ukupno: @total.ToString("0.00") kn</h4>
+<br />
 
 <dl class="dl-horizontal">
     <dt>
@@ -95,5 +100,5 @@
 
     <button type="submit" class="btn btn-success">Pošalji narudžbu</button>
 }
-@Html.ActionLink("Nazad", "AddCustomerInfo", "", new { @class = "btn btn-default" })
+@Html.ActionLink("Nazad", "AddCustomerInfo", "", new { @class = "btn btn-default", @style="margin-top:2px;" })
 

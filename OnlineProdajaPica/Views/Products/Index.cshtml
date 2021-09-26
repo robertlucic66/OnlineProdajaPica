@@ -49,13 +49,29 @@
             background-color: #666;
             color: white;
         }
-    input {
+    #quantity {
         background: none;
         color: red;
         border: none;
-        width:50px;
+        width:52px;
         font-size:24px;
     }
+    .price__ul {
+        top:0.8vmin;
+    }
+    .price .price--kn {
+        line-height: 7vmin;
+        font-size: 7vmin;
+    }
+    .price--li {
+        font-size: 3.5vmin;
+        line-height: 3.5vmin;
+    }
+    .price--c {
+        font-size: 2.5vmin;
+        line-height: 1.5vmin;
+    }
+
 </style>
 
 
@@ -70,24 +86,26 @@
 {
     <div id="div-@item.Id" class="column" style="background-color:rgba(170, 170, 170, 0.28); height:270px;">
         <div style="float:left; width: 40%;">
-            @Html.ActionLink(item.Name, "Details", new { id = item.Id }, new { @class = "h3" })
-            <p>@Html.DisplayFor(modelItem => item.Description)</p>
-            <p>@Html.DisplayFor(modelItem => item.Category.Name)</p>
+            <div style="height:70px;">
+                @Html.ActionLink(item.Name, "Details", new { id = item.Id }, new { @style="font-size:2.7vmin;" })
+                <p>@Html.DisplayFor(modelItem => item.Description)</p>
+            </div>
+            
 
             <div class="price ">
                 <span class="price--kn">@((int)item.Price)</span>
                 <div class="price__ul">
-                    @{
-                        int broj = (int)((item.Price - Math.Truncate(item.Price)) * 100);
-                    }
+                    @{ int broj = (int)((item.Price - Math.Truncate(item.Price)) * 100); }
                     <span class="price--li">@broj</span>
                     <small class="price--c">kn/kom</small>
                 </div>
             </div>
 
+            
+
             @using (Html.BeginForm("AddToCart", "Cart", new { id=item.Id}, FormMethod.Get))
             {
-                <div style="text-align:center; padding:10px">
+                <div style="padding-top:10px; padding-bottom:10px;">
                     <input id="quantity" name="quantity" type="number" value="1" min="1" >
                     <span>kom</span>
                 </div>

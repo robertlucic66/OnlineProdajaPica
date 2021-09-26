@@ -228,6 +228,10 @@
     <Compile Include="Migrations\202109171904249_izmjeneCustomerInfoModel.Designer.cs">
       <DependentUpon>202109171904249_izmjeneCustomerInfoModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202109261625540_dodanUkupnaCijenaPropertyuOrderModel.cs" />
+    <Compile Include="Migrations\202109261625540_dodanUkupnaCijenaPropertyuOrderModel.Designer.cs">
+      <DependentUpon>202109261625540_dodanUkupnaCijenaPropertyuOrderModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -366,6 +370,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202109171904249_izmjeneCustomerInfoModel.resx">
       <DependentUpon>202109171904249_izmjeneCustomerInfoModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109261625540_dodanUkupnaCijenaPropertyuOrderModel.resx">
+      <DependentUpon>202109261625540_dodanUkupnaCijenaPropertyuOrderModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

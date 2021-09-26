@@ -2,9 +2,22 @@
 
 @{
     ViewBag.Title = "Index";
+    decimal price = 0;
+    decimal total = 0;
 }
 
+
+
 <h2>Košarica</h2>
+
+<style>
+    input {
+        background: none;
+        border: none;
+        width: 50px;
+        font-size: 14px;
+    }
+</style>
 
 <br />
 @if (!Model.Any())
@@ -25,12 +38,16 @@ else
             <th>
                 @Html.DisplayNameFor(model => model.Quantity)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
             <th></th>
         </tr>
 
         @foreach (var item in Model)
         {
-
+            price = item.Price * item.Quantity;
+            total += price;
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
@@ -47,10 +64,12 @@ else
                      <td>
                         @*@Html.DisplayFor(modelItem => item.Quantity)*@
                         <input id="@nameofInput" type="number" min="1" value="@item.Quantity" name="quantity" onchange="myFunction(@item.Id)"/>
-                    </td>
-
+                    </td>                    
                  }
                 
+                <td>
+                    @price.ToString("0.00") kn
+                </td>
                 <td>
                     @Html.ActionLink("Izbriši", "RemoveFromCart", new { id = item.Id })
                 </td>
@@ -58,9 +77,10 @@ else
         }
     </table>
 
+    <h4>Ukupno @total.ToString("0.00") kn</h4>
 
-    @Html.ActionLink("Nastavi do unosa podataka", "AddCustomerInfo", "", htmlAttributes: new { @class = "btn btn-primary" })
     @Html.ActionLink("Nastavi kupovinu", "Index", "Products", "", new { @class = "btn btn-default" })
+    @Html.ActionLink("Nastavi do unosa podataka", "AddCustomerInfo", "", htmlAttributes: new { @class = "btn btn-primary", @style = "margin-left:2px;" })   
 }
 
 <script>

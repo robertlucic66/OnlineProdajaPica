@@ -20,5 +20,7 @@ namespace OnlineProdajaPica.Models
         public DateTime? DatumNarudzbe { get; set; }
 
         public bool Dostavljeno { get; set; }
+
+        public decimal UkupnaCijena { get; set; }
     }
 }
