@@ -23,7 +23,13 @@ namespace OnlineProdajaPica
                 name: "AddToCart",
                 url: "cart/addtocart/{id}/{quantity}",
                 defaults: new { controller = "Cart", action = "AddToCart", id = UrlParameter.Optional }
-                );
+            );
+
+            routes.MapRoute(
+                name: "KategorijeRoute",
+                url: "products/kategorije/{id}",
+                defaults: new { controller = "Products", action = "Kategorije", id = UrlParameter.Optional }
+            );
         }
     }
 }

@@ -41,6 +41,7 @@ namespace OnlineProdajaPica.Controllers
             }
             Session["CartItems"] = kosarica.Count;
             var productList = _context.Products.Include(p=>p.Category).ToList();
+            ViewBag.Categories = _context.Categories.ToList();
             if (User.IsInRole("Admin"))
                 return View("AdminView", productList);
             return View("Index", productList);
@@ -177,5 +178,17 @@ namespace OnlineProdajaPica.Controllers
             }
         }
 
+        [Route("KategorijeRoute")]
+        [AllowAnonymous]
+        public ActionResult Kategorije(string id)
+        {
+            var productList = _context.Products.Where(p=>p.Category.Name == id).Include(p => p.Category).ToList();
+            ViewBag.Categories = _context.Categories.ToList();
+            if (productList.Count < 1)
+            {
+                productList = _context.Products.ToList();
+            }
+            return View("Index", productList);
+        }
     }
 }
