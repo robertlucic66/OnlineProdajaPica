@@ -15,7 +15,7 @@
 
 
 
-<h2>Pića</h2>
+<h2 style="text-align:center">Pića</h2>
 
 <style>
     * {
@@ -72,11 +72,28 @@
         font-size: 2.5vmin;
         line-height: 1.5vmin;
     }
+    @@media screen and (min-width: 601px){
+        #imeProizvoda{
+            font-size:2.7vmin;
+        }
+    }
+
+    #myInput {
+        background-image: url('/img/icons/search-icon.png');
+        background-position: 13px 15px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 16px;
+        padding: 10px 20px 10px 40px;
+        border: 1px solid #ddd;
+        margin-bottom: 10px;
+    }
 
 </style>
 
 
-<div class="dropdown">
+
+<div class="dropdown" style="margin-bottom:10px">
     <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">
         Kategorija
         <span class="caret"></span>
@@ -90,54 +107,62 @@
         }
     </ul>
 </div>
-<br />
 
-<div id="btnContainer">
-    <button class="btn btn2 active" onclick="gridView()"><i class="fa fa-th-large"></i> Rešetke</button>
-    <button class="btn btn2" onclick="listView()"><i class="fa fa-bars"></i> Lista</button>
+<div>
+    <div id="btnContainer" style="width:40%; float:left">
+        <button class="btn btn2 active" onclick="gridView()"><i class="fa fa-th-large"></i> Rešetke</button>
+        <button class="btn btn2" onclick="listView()"><i class="fa fa-bars"></i> Lista</button>
+    </div>
+    <div style="width:60%; float:right;">
+        <input class="pull-right" type="text" id="myInput" onkeyup="myFunction()" placeholder="Upišite pojam..." title="Pretraživanje proizvoda">
+    </div>
 </div>
+
 <br>
 <input type="hidden" id="poruka" value="@ViewBag.Poruka" />
 
-@foreach (var item in Model)
-{
-    <div id="div-@item.Id" class="column" style="background-color:rgba(170, 170, 170, 0.28); height:270px;">
-        <div style="float:left; width: 40%;">
-            <div style="height:70px; overflow:hidden;">
-                @Html.ActionLink(item.Name, "Details", new { id = item.Id }, new { @style="font-size:2vmin;" })
-                <p>@Html.DisplayFor(modelItem => item.Description)</p>
+<div id="glavniDiv" style="display:inline-block; width:100%">
+    @foreach (var item in Model)
+    {
+        <div id="div-@item.Id" class="column" style="background-color:rgba(170, 170, 170, 0.28); height:270px;">
+            <div style="float:left; width: 40%;">
+                <div style="height:70px; overflow:hidden;">
+                    @Html.ActionLink(item.Name, "Details", new { id = item.Id }, new { @id="imeProizvoda" })
+                    <p>@Html.DisplayFor(modelItem => item.Description)</p>
+                </div>
+
+
+                <div class="price ">
+                    <span class="price--kn">@((int)item.Price)</span>
+                    <div class="price__ul">
+                        @{ int broj = (int)((item.Price - Math.Truncate(item.Price)) * 100); }
+                        <span class="price--li">@broj</span>
+                        <small class="price--c">kn/kom</small>
+                    </div>
+                </div>
+
+
+
+                @using (Html.BeginForm("AddToCart", "Cart", new { id = item.Id }, FormMethod.Get))
+                {
+                    <div style="padding-top:10px; padding-bottom:10px;">
+                        <input id="quantity" name="quantity" type="number" value="1" min="1">
+                        <span>kom</span>
+                    </div>
+                    <div>
+                        <button type="submit">Dodaj u košaricu</button>
+                    </div>
+                }
+
             </div>
-            
-
-            <div class="price ">
-                <span class="price--kn">@((int)item.Price)</span>
-                <div class="price__ul">
-                    @{ int broj = (int)((item.Price - Math.Truncate(item.Price)) * 100); }
-                    <span class="price--li">@broj</span>
-                    <small class="price--c">kn/kom</small>
-                </div>
+            <div style="float:right; width: 60%; text-align:center;">
+                <img src="~/img/products/@item.ImageUrl" style="height:250px" />
             </div>
-
-            
-
-            @using (Html.BeginForm("AddToCart", "Cart", new { id=item.Id}, FormMethod.Get))
-            {
-                <div style="padding-top:10px; padding-bottom:10px;">
-                    <input id="quantity" name="quantity" type="number" value="1" min="1" >
-                    <span>kom</span>
-                </div>
-                <div>
-                    <button type="submit">Dodaj u košaricu</button>
-                </div>
-            }
-
         </div>
-        <div style="float:right; width: 60%; text-align:center;">
-            <img src="~/img/products/@item.ImageUrl" style="height:250px" />
-        </div>
-    </div>
 
-}
+    }
+</div>
+
 
 
 <script>
@@ -172,5 +197,24 @@
 <script>
     function pokaziAlert(poruka) {
         alert(poruka);
+    }
+</script>
+
+<script>
+    function myFunction() {
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("glavniDiv");
+        li = ul.getElementsByClassName("column");
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("a")[0];
+            txtValue = a.textContent || a.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
     }
 </script>
