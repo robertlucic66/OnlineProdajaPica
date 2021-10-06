@@ -110,8 +110,8 @@
 
 <div>
     <div id="btnContainer" style="width:40%; float:left">
-        <button class="btn btn2 active" onclick="gridView()"><i class="fa fa-th-large"></i> Rešetke</button>
-        <button class="btn btn2" onclick="listView()"><i class="fa fa-bars"></i> Lista</button>
+        <button id="buttonGrid" class="btn btn2 active" onclick="gridView()"><i class="fa fa-th-large"></i> Rešetke</button>
+        <button id="buttonList" class="btn btn2" onclick="listView()"><i class="fa fa-bars"></i> Lista</button>
     </div>
     <div style="width:60%; float:right;">
         <input class="pull-right" type="text" id="myInput" onkeyup="myFunction()" placeholder="Upišite pojam..." title="Pretraživanje proizvoda">
@@ -182,6 +182,7 @@
             elements[i].style.width = "50%";
         }
     }
+
     /* Optional: Add active class to the current button (highlight it) */
     var container = document.getElementById("btnContainer");
     var btns = container.getElementsByClassName("btn");
@@ -191,6 +192,11 @@
             current[0].className = current[0].className.replace(" active", "");
             this.className += " active";
         });
+    }
+
+    if (window.innerWidth < 600) {
+        var buttonList = document.getElementById("buttonList");
+        buttonList.click();
     }
 </script>
 

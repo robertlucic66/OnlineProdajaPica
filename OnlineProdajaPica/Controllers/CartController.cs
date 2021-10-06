@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using OnlineProdajaPica.ViewModels;
+using System.Web.Helpers;
 
 namespace OnlineProdajaPica.Controllers
 {
@@ -156,11 +157,14 @@ namespace OnlineProdajaPica.Controllers
             List<int> productList = new List<int>();
             List<int> quantityList = new List<int>();
             decimal totalPrice = 0;
+            string proizvodi = "";
             foreach (var item in kosarica)
             {
                 totalPrice += (item.Price * item.Quantity);
                 productList.Add(item.Id);
                 quantityList.Add(item.Quantity);
+                string proizvod = item.Name + " - " + item.Quantity;
+                proizvodi += proizvod + ", ";
             }
 
             Order order = new Order()
@@ -180,6 +184,9 @@ namespace OnlineProdajaPica.Controllers
             customerInfo.OrderId = order.Id;
             _context.CustomerInfos.Add(customerInfo);
             _context.SaveChanges();
+
+            WebMail.Send(User.Identity.GetUserName().ToString(), "Narudžba ID: " + order.Id, "Vaša narudžba je zaprimljena. " + proizvodi + "  <b> Hvala... </b>",null,null,null,true,null,null,null,null,null,null);
+
             Session["CustomerInfo"] = null;
             Session["Cart"] = null;
             Session["CartItems"] = null;
