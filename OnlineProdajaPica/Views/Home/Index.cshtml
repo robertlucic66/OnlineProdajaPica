@@ -31,6 +31,9 @@
     .price__ul{
         top:2px;
     }
+    .h4{
+        font-size:clamp(14px, 2.5vw, 20px);
+    }
 </style>
 
 @*<div class="jumbotron">
@@ -63,7 +66,7 @@
 
 <br />
 <h2>Voda</h2>
-<div style="border:2px solid red; border-radius:5px;">
+<div style="background: rgba(0, 58, 196, 0.12); border: 2px solid #7c7c7c; border-radius: 4px;">
     <div id="voda-swiper">
         <div class="swiper mySwiper swiper-initialized swiper-horizontal swiper-pointer-events">
             <div class="swiper-wrapper" id="swiper-wrapper-20912caf49a53244" aria-live="polite" style="transition-duration: 0ms; transform: translate3d(-1266px, 0px, 0px);">
@@ -121,7 +124,7 @@
 <br />
 <br />
 <h2>Sokovi</h2>
-<div style="border:2px solid red; border-radius:5px;">
+<div style="background: rgba(0, 58, 196, 0.12); border: 2px solid #7c7c7c; border-radius: 4px;">
     <div id="sokovi-swiper">
         <div class="swiper mySwiper swiper-initialized swiper-horizontal swiper-pointer-events">
             <div class="swiper-wrapper" id="swiper-wrapper-20912caf49a53244" aria-live="polite" style="transition-duration: 0ms; transform: translate3d(-1266px, 0px, 0px);">
@@ -179,7 +182,7 @@
 <br />
 <br />
 <h2>Pivo</h2>
-<div style="border:2px solid red; border-radius:5px;">
+<div style="background: rgba(0, 58, 196, 0.12); border: 2px solid #7c7c7c; border-radius: 4px;">
     <div id="pivo-swiper">
         <div class="swiper mySwiper swiper-initialized swiper-horizontal swiper-pointer-events">
             <div class="swiper-wrapper" id="swiper-wrapper-20912caf49a53244" aria-live="polite" style="transition-duration: 0ms; transform: translate3d(-1266px, 0px, 0px);">
@@ -237,7 +240,7 @@
 <br />
 <br />
 <h2>Vino</h2>
-<div style="border:2px solid red; border-radius:5px;">
+<div style="background: rgba(0, 58, 196, 0.12); border: 2px solid #7c7c7c; border-radius: 4px;">
     <div id="vino-swiper">
         <div class="swiper mySwiper swiper-initialized swiper-horizontal swiper-pointer-events">
             <div class="swiper-wrapper" id="swiper-wrapper-20912caf49a53244" aria-live="polite" style="transition-duration: 0ms; transform: translate3d(-1266px, 0px, 0px);">
@@ -295,7 +298,7 @@
 <br />
 <br />
 <h2>Alkoholna pića</h2>
-<div style="border:2px solid red; border-radius:5px;">
+<div style="background:rgba(0, 58, 196, 0.12); border:2px solid #7c7c7c; border-radius:4px;">
     <div id="alkoholna-swiper">
         <div class="swiper mySwiper swiper-initialized swiper-horizontal swiper-pointer-events">
             <div class="swiper-wrapper" id="swiper-wrapper-20912caf49a53244" aria-live="polite" style="transition-duration: 0ms; transform: translate3d(-1266px, 0px, 0px);">
@@ -359,19 +362,39 @@
 
 <script src="https://unpkg.com/swiper@7.0.6/swiper-bundle.min.js"></script>
 <script>
-    var swiper = new Swiper(".mySwiper", {
-        slidesPerView: 3,
-        spaceBetween: 30,
-        slidesPerGroup: 3,
-        loop: true,
-        loopFillGroupWithBlank: true,
-        pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-        },
-        navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-        },
-    });
+    var swiper;
+    if (window.innerWidth < 1000) {
+        swiper = new Swiper(".mySwiper", {
+            slidesPerView: 2,
+            spaceBetween: 10,
+            slidesPerGroup: 2,
+            loop: true,
+            loopFillGroupWithBlank: true,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+    } else {
+        swiper = new Swiper(".mySwiper", {
+            slidesPerView: 3,
+            spaceBetween: 30,
+            slidesPerGroup: 3,
+            loop: true,
+            loopFillGroupWithBlank: true,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+    }
+
 </script>

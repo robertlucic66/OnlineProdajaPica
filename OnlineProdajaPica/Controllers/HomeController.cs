@@ -24,15 +24,6 @@ namespace OnlineProdajaPica.Controllers
 
         public ActionResult Index()
         {
-            if(Session["Cart"] == null)
-            {
-                Session["Cart"] = kosarica;
-            }
-            else
-            {
-                kosarica = (List<Product>)Session["Cart"];
-            }
-            Session["CartItems"] = kosarica.Count;
             var productList = _context.Products.Include(p => p.Category).ToList();
             return View(productList);
 

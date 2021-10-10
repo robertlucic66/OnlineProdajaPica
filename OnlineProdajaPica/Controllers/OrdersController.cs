@@ -25,6 +25,14 @@ namespace OnlineProdajaPica.Controllers
             _context.Dispose();
         }
 
+        public static int GetBrojNarudzbi()
+        {
+            ApplicationDbContext dbContext = new ApplicationDbContext();
+            var orders = dbContext.Orders.Where(o=>o.Dostavljeno==false).Count();
+            return (int)orders;
+        }
+
+
         // GET: Orders
         public ActionResult Index()
         {

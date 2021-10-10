@@ -31,15 +31,8 @@ namespace OnlineProdajaPica.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            if (Session["Cart"] == null)
-            {
-                Session["Cart"] = kosarica;
-            }
-            else
-            {
-                kosarica = (List<Product>)Session["Cart"];
-            }
-            Session["CartItems"] = kosarica.Count;
+            Session["CurrentCategory"] = "Kategorija";
+
             var productList = _context.Products.Include(p=>p.Category).ToList();
             ViewBag.Categories = _context.Categories.ToList();
             if (User.IsInRole("Admin"))
@@ -183,6 +176,15 @@ namespace OnlineProdajaPica.Controllers
         public ActionResult Kategorije(string id)
         {
             var productList = _context.Products.Where(p=>p.Category.Name == id).Include(p => p.Category).ToList();
+            try
+            {
+                Session["CurrentCategory"] = _context.Categories.SingleOrDefault(c => c.Name == id).Name;
+            }
+            catch
+            {
+                Session["CurrentCategory"] = "Kategorija";
+            }
+            
             ViewBag.Categories = _context.Categories.ToList();
             if (productList.Count < 1)
             {

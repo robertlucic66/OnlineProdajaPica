@@ -1,6 +1,20 @@
 ﻿<!DOCTYPE html>
 <html>
+@{ 
+    var kosarica = new List<OnlineProdajaPica.Models.Product>();
+    if (Session["Cart"] != null)
+    {
+        kosarica = (List<OnlineProdajaPica.Models.Product>)Session["Cart"];
+    }
+    else
+    {
+        Session["Cart"] = kosarica;
+    }
+    var brojNarudzbi = OnlineProdajaPica.Controllers.OrdersController.GetBrojNarudzbi();
+}
+
 <head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
@@ -16,13 +30,25 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Online Prodaja Pića", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    <li>
+                        <div class="divShoppingCartIcon" href="/Cart">
+                            <form action="/Cart">
+                                <button type="submit" class="icon-button">
+                                    <span class="material-icons">shopping_cart</span>
+                                    @if (kosarica.Count() > 0)
+                                    {
+                                        <span class="icon-button__badge">@kosarica.Count()</span>
+                                    }
+                                </button>
+                            </form>
+                        </div>
+                    </li>
                     <li>@Html.ActionLink("Pića", "Index", "Products")</li>
-                    <li>@Html.ActionLink("Košarica (" + Session["CartItems"] + ")", "Index", "Cart")</li>
-                    <li>@Html.ActionLink("Narudžbe", "Index", "Orders")</li>
+                    <li>@Html.ActionLink("Narudžbe (" + brojNarudzbi + ")", "Index", "Orders")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

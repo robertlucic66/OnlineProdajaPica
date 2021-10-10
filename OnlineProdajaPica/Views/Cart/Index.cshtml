@@ -62,7 +62,6 @@ else
                  @using (Html.BeginForm("ChangeQuantity", "Cart", new { id=item.Id}, FormMethod.Post, new { @id = nameofForm }))
                  {
                      <td>
-                        @*@Html.DisplayFor(modelItem => item.Quantity)*@
                         <input id="@nameofInput" type="number" min="1" value="@item.Quantity" name="quantity" onchange="myFunction(@item.Id)"/>
                     </td>                    
                  }
@@ -80,7 +79,7 @@ else
     <h4>Ukupno @total.ToString("0.00") kn</h4>
 
     @Html.ActionLink("Nastavi kupovinu", "Index", "Products", "", new { @class = "btn btn-default" })
-    @Html.ActionLink("Nastavi do unosa podataka", "AddCustomerInfo", "", htmlAttributes: new { @class = "btn btn-primary", @style = "margin-left:2px;" })   
+    @Html.ActionLink("Nastavi do unosa podataka", "AddCustomerInfo", "", htmlAttributes: new { @class = "btn btn-primary", @style = "margin-left:5px;" })   
 }
 
 <script>
