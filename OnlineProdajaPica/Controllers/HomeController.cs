@@ -22,6 +22,12 @@ namespace OnlineProdajaPica.Controllers
             _context.Dispose();
         }
 
+        public static List<Category> GetCategories()
+        {
+            ApplicationDbContext dbContext = new ApplicationDbContext();
+            return dbContext.Categories.ToList();
+        }
+
         public ActionResult Index()
         {
             var productList = _context.Products.Include(p => p.Category).ToList();

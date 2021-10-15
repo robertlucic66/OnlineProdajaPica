@@ -53,7 +53,12 @@ namespace OnlineProdajaPica.Controllers
             if (id == null)
                 return RedirectToAction("Index", "Products");
             if (quantity == null)
+            {
+                TempData["Poruka"] = "Neispravan unos";
                 return RedirectToAction("Index", "Products");
+            }        
+            if ((int)quantity < 1)
+                quantity = 1;
             var productToAdd = _context.Products.Single(p => p.Id == id);
             kosarica = (List<Product>)Session["Cart"];
             string poruka;

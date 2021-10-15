@@ -32,6 +32,7 @@ namespace OnlineProdajaPica.Models
 
         public string ImageUrl { get; set; }
 
+        [Range(1,int.MaxValue,ErrorMessage ="Unesena vrijednost nije ispravna.")]
         public int Quantity { get; set; }
     }
 }

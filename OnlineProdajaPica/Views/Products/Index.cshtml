@@ -26,7 +26,7 @@
         float: left;
         width: 50%;
         padding: 10px;
-        height: 270px;
+        height: 350px;
     }
     /* Clear floats after the columns */
     .row:after {
@@ -51,32 +51,38 @@
             background-color: #666;
             color: white;
         }
-    #quantity {
-        background: none;
-        color: red;
-        border: none;
-        width:52px;
-        font-size:24px;
+    .quantity {
+        border:none;
+        height: 40px;
+        width: 45px;
+        text-align: center;
+        font-size: 26px;
+        display: inline-block;
+        vertical-align: middle;
+        background:none;
     }
+
     .price__ul {
-        top:0.8vmin;
+        top:2px;
     }
     .price .price--kn {
-        line-height: 7vmin;
-        font-size: 7vmin;
+        line-height: 70px;
+        font-size: 70px;
     }
     .price--li {
-        font-size: 3.5vmin;
-        line-height: 3.5vmin;
+        font-size: 35px;
+        line-height: 35px;
     }
     .price--c {
-        font-size: 2.5vmin;
-        line-height: 1.5vmin;
+        font-size: 18px;
     }
-    @@media screen and (min-width: 601px){
-        #imeProizvoda{
-            font-size:2.7vmin;
-        }
+
+    @@media screen and (max-width:768px){
+        
+    }
+
+    #imeProizvoda{
+        font-size:clamp(18px, 2.3vmin, 24px);
     }
 
     #myInput {
@@ -88,6 +94,23 @@
         padding: 10px 20px 10px 40px;
         border: 1px solid #ddd;
         margin-bottom: 10px;
+    }
+
+    .minusButton, .plusButton {
+        color: white;
+        width: 40px;
+        height: 40px;
+        background: #666;
+        border-radius: 8px;
+        padding: 8px 8px 10px 10px;
+        border: 2px outset #ddd;
+        display: inline-block;
+        vertical-align: middle;
+        text-align: center;
+        cursor: pointer;
+    }
+    .minusButton:hover, .plusButton:hover {
+        background-color: #444
     }
 
 </style>
@@ -127,15 +150,15 @@
 <div id="glavniDiv" style="display:inline-block; width:100%">
     @foreach (var item in Model)
     {
-        <div id="div-@item.Id" class="column" style="background-color:rgba(170, 170, 170, 0.28);">
-            <div style="float:left; width: 50%;">
-                <div style="height:70px; overflow:hidden;">
+        <div id="div-@item.Id" class="column banHighlight" style="background-color:rgba(170, 170, 170, 0.28); border:1px outset white">
+            <div style="float:left; width: 50%; height:330px;">
+                <div style="height:90px; overflow:hidden;">
                     @Html.ActionLink(item.Name, "Details", new { id = item.Id }, new { @id="imeProizvoda" })
                     <p>@Html.DisplayFor(modelItem => item.Description)</p>
                 </div>
 
 
-                <div class="price ">
+                <div class="price">
                     <span class="price--kn">@((int)item.Price)</span>
                     <div class="price__ul">
                         @{ int broj = (int)((item.Price - Math.Truncate(item.Price)) * 100); }
@@ -147,26 +170,61 @@
 
 
                 @using (Html.BeginForm("AddToCart", "Cart", new { id = item.Id }, FormMethod.Get))
-                {
-                    <div style="padding-top:10px; padding-bottom:10px;">
-                        <input id="quantity" name="quantity" type="number" value="1" min="1">
-                        <span>kom</span>
+                    {
+                        string quantityId = "quantity" + item.Id;
+                    <div style="padding-top:40px; padding-bottom:15px;">
+                        <span class="minusButton" onclick="smanjiKolicinu(@item.Id)">-</span>
+                        <div style="display:inline-block;">
+                            <input id="@quantityId" class="quantity" type="text" name="quantity" value="1" onchange="provjeriInput(this)" />
+                            <text style="vertical-align: middle; height:26px; padding-right:5px;">kom</text>
+                        </div>
+                        
+                        <span class="plusButton" onclick="povecajKolicinu(@item.Id)">+</span>
+
+
+                        @*<input id="quantity" name="quantity" type="number" value="1" min="1">
+                        <span>kom</span>*@
                     </div>
                     <div>
-                        <button type="submit">Dodaj u košaricu</button>
+                        <button type="submit" class="btn btn-success" style="border:2px inset white; height:50px; font-size:17px; width:169px;">Dodaj u košaricu</button>
                     </div>
                 }
 
             </div>
             <div style="float:right; width: 50%; text-align:center;">
-                <img src="~/img/products/@item.ImageUrl" style="height:200px; margin-top:10px;" />
+                <img src="~/img/products/@item.ImageUrl" style="height:280px; margin-top:25px;" />
             </div>
         </div>
 
     }
 </div>
 
+<script>
+    function onlyListView() {
+        if (window.innerWidth < 769) {
+            var buttonList = document.getElementById("buttonList");
+            document.getElementById("buttonGrid").style.display = "none";
+            buttonList.click();
+        }
+        if (window.innerWidth > 768) {
+            document.getElementById("buttonGrid").style.display = null;
+            var buttonGrid = document.getElementById("buttonGrid");
+            buttonGrid.click();        
+        }
+    }
+    var timeOut = null;
 
+    window.onresize = function () {
+        if (timeOut != null)
+            clearTimeout(timeOut);
+
+        timeOut = setTimeout(function () {
+            onlyListView();
+        }, 100);
+    };
+
+
+</script>
 
 <script>
     // Get the elements with class="column"
@@ -196,11 +254,8 @@
             this.className += " active";
         });
     }
-
-    if (window.innerWidth < 600) {
-        var buttonList = document.getElementById("buttonList");
-        buttonList.click();
-    }
+    onlyListView();
+    
 </script>
 
 <script>
@@ -227,3 +282,41 @@
         }
     }
 </script>
+
+<script>
+    function provjeriInput(input) {
+        var count = parseInt(input.value);
+        if (count < 1 || count == null || Number.isNaN(count)) {
+            count = 1
+            alert("Neispravan unos količine. Količina će se vratiti na 1");
+            input.value = count;
+        }      
+    }
+
+    function smanjiKolicinu(id) {
+        var nameOfInput = "quantity" + id;
+        var input = document.getElementById(nameOfInput);
+        var count = parseInt(input.value);
+        if (count < 1 || count == null || Number.isNaN(count)) {                
+            count = 1;         
+        }
+        else {
+            count = count <= 1 ? 1 : count - 1;          
+        }    
+        input.value = count;
+    }
+    function povecajKolicinu(id) {
+        var nameOfInput = "quantity" + id;
+        var input = document.getElementById(nameOfInput);
+        var count = parseInt(input.value);
+        if (count < 1 || count == null || Number.isNaN(count)) {
+            count = 1;
+        }
+        else {
+            count++;
+        }    
+        input.value = count;
+    }
+</script>
+
+

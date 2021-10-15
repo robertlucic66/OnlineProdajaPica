@@ -16,10 +16,9 @@
         <th>
             Narudžba
         </th>
-        <th>
+        <th style="text-align:center;">
             Vrijeme narudžbe
         </th>
-        <th></th>
         <th></th>
     </tr>
 
@@ -43,20 +42,24 @@
             }
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DatumNarudzbe)
-        </td>
-        <td>
-            @Html.ActionLink("Opširnije", "Details", new { id = item.Id })
-        </td>
-        <td>
+            <p style="text-align:center;">
+                @Html.DisplayFor(modelItem => item.DatumNarudzbe)
+            </p>
+            
             @if (item.Dostavljeno == false)
             {
-                @Html.ActionLink("Označi kao dostavljeno", "MarkAsDelivered", new { id = item.Id }, new { @class="btn btn-default"})
+                <div style="display:block;text-align:center;">
+                    @Html.ActionLink("Označi kao dostavljeno", "MarkAsDelivered", new { id = item.Id }, new { @class="btn btn-default"})
+                </div>
+                
             }
             else 
             {
-                <p>Dostavljeno</p>
+                <p style="text-align:center;">Dostavljeno</p>
             }
+        </td>
+        <td>
+            @Html.ActionLink("Opširnije", "Details", new { id = item.Id })
         </td>
     </tr>
 }

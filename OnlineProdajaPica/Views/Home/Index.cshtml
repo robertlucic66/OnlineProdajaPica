@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Home Page";
     var index = 0;
+    var categories = OnlineProdajaPica.Controllers.HomeController.GetCategories();
 }
 
 <head>
@@ -28,11 +29,13 @@
     .swiper-slide-next {
         margin-right: 0px;
     }
-    .price__ul{
-        top:2px;
+
+    .price__ul {
+        top: 2px;
     }
-    .h4{
-        font-size:clamp(14px, 2.5vw, 20px);
+
+    .h4 {
+        font-size: clamp(14px, 2.5vw, 20px);
     }
 </style>
 
@@ -65,299 +68,71 @@
     </div>*@
 
 <br />
-<h2>Voda</h2>
-<div style="background: rgba(0, 58, 196, 0.12); border: 2px solid #7c7c7c; border-radius: 4px;">
-    <div id="voda-swiper">
-        <div class="swiper mySwiper swiper-initialized swiper-horizontal swiper-pointer-events">
-            <div class="swiper-wrapper" id="swiper-wrapper-20912caf49a53244" aria-live="polite" style="transition-duration: 0ms; transform: translate3d(-1266px, 0px, 0px);">
+<div class="banHighlight" style="border: 3px outset gray; border-radius:10px;">
+    <div class="tab">
+        <button id="defaultCategory" class="tablinks" onclick="showSwiper(event, 'Voda-swiper')">Voda</button>
+        <button class="tablinks" onclick="showSwiper(event, 'Sokovi-swiper')">Sokovi</button>
+        <button class="tablinks" onclick="showSwiper(event, 'Pivo-swiper')">Pivo</button>
+        <button class="tablinks" onclick="showSwiper(event, 'Vino-swiper')">Vino</button>
+        <button class="tablinks" onclick="showSwiper(event, 'Alkoholna-swiper')">Alkoholna pića</button>
+    </div>
 
-
-                @foreach (var item in Model)
-                {
-                    if (item.Category.Name == "Voda")
+    @foreach (var item in categories)
+    {
+        var kategorija = "";
+        if (item.Name == "Alkoholna pića")
+        {
+            kategorija = "Alkoholna";
+        }
+        else
+        {
+            kategorija = item.Name;
+        }
+        <div id="@kategorija-swiper" class="tabcontent">
+            <div class="swiper mySwiper swiper-initialized swiper-horizontal swiper-pointer-events">
+                <div class="swiper-wrapper" id="swiper-wrapper-20912caf49a53244" aria-live="polite" style="transition-duration: 0ms; transform: translate3d(-1266px, 0px, 0px);">
+                    @foreach (var product in Model)
                     {
-                        var label = (index + 1);
-                        <div class="swiper-slide" data-swiper-slide-index="@index" role="group" aria-label="@label / @Model.Count()" style="margin-right:0px;">
-                            <div>
-                                <div style="text-align:center; margin-top:10px; width:50%; float:left; max-width:100px; height:200px; display: flex; justify-content: center; align-items: center;">
-                                    <img src="~/img/products/@item.ImageUrl" style="width:100%" />
-                                </div>
-                                <div class="pull-left" style="padding-top:10px; width:50%; float:right;">
-                                    <div style="text-align:center;">
-                                        <div style="padding-top:10px; margin-top:10px; height:60px; overflow:hidden;">
-                                            @Html.ActionLink(item.Name, "Details", "Products", new { id = item.Id }, new { @class = "h4" })
-                                        </div>
-                                        <div style="display:block; padding-top:10px; padding-bottom:10px">
-                                            <div class="price ">
-                                                <span class="price--kn">@((int)item.Price)</span>
-                                                <div class="price__ul">
-                                                    @{ int broj = (int)((item.Price - Math.Truncate(item.Price)) * 100); }
-                                                    <span class="price--li">@broj</span>
-                                                    <small class="price--c">kn/kom</small>
+                        if (product.Category.Name == item.Name)
+                        {
+                            var label = (index + 1);
+                            <div class="swiper-slide" data-swiper-slide-index="@index" role="group" aria-label="@label / @Model.Count()" style="margin-right:0px;">
+                                <div>
+                                    <div style="text-align:center; margin-top:10px; width:50%; float:left; max-width:100px; height:200px; display: flex; justify-content: center; align-items: center;">
+                                        <img src="~/img/products/@product.ImageUrl" style="width:100%" />
+                                    </div>
+                                    <div class="pull-left" style="padding-top:10px; width:50%; float:right;">
+                                        <div style="text-align:center;">
+                                            <div style="padding-top:10px; margin-top:10px; height:60px; overflow:hidden;">
+                                                @Html.ActionLink(product.Name, "Details", "Products", new { id = product.Id }, new { @class = "h4" })
+                                            </div>
+                                            <div style="display:block; padding-top:10px; padding-bottom:10px">
+                                                <div class="price ">
+                                                    <span class="price--kn">@((int)product.Price)</span>
+                                                    <div class="price__ul">
+                                                        @{ int broj = (int)((product.Price - Math.Truncate(product.Price)) * 100); }
+                                                        <span class="price--li">@broj</span>
+                                                        <small class="price--c">kn/kom</small>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            @Html.ActionLink("Dodaj", "Details", "Products", new { id = product.Id }, new { @class = "btn btn-success" })
                                         </div>
-                                        @Html.ActionLink("Dodaj", "Details", "Products", new { id = item.Id }, new { @class = "btn btn-success" })
                                     </div>
-
                                 </div>
                             </div>
-                            <div>
-
-
-
-                            </div>
-
-                        </div>
-                        index += 1;
+                            index += 1;
+                        }
                     }
-                }
-
+                </div>
+                <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-20912caf49a53244"></div>
+                <div class="swiper-button-prev" tabindex="0" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-20912caf49a53244"></div>
+                <div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal"><span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 3"></span></div>
+                <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
             </div>
-            <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-20912caf49a53244"></div>
-            <div class="swiper-button-prev" tabindex="0" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-20912caf49a53244"></div>
-            <div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal"><span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 3"></span></div>
-            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
         </div>
-    </div>
+    }
 </div>
-<br />
-<br />
-<h2>Sokovi</h2>
-<div style="background: rgba(0, 58, 196, 0.12); border: 2px solid #7c7c7c; border-radius: 4px;">
-    <div id="sokovi-swiper">
-        <div class="swiper mySwiper swiper-initialized swiper-horizontal swiper-pointer-events">
-            <div class="swiper-wrapper" id="swiper-wrapper-20912caf49a53244" aria-live="polite" style="transition-duration: 0ms; transform: translate3d(-1266px, 0px, 0px);">
-
-
-                @foreach (var item in Model)
-                {
-                    if (item.Category.Name == "Sokovi")
-                    {
-                        var label = (index + 1);
-                        <div class="swiper-slide" data-swiper-slide-index="@index" role="group" aria-label="@label / @Model.Count()" style="margin-right:0px;">
-                            <div>
-                                <div style="text-align:center; margin-top:10px; width:50%; float:left; max-width:100px; height:200px; display: flex; justify-content: center; align-items: center;">
-                                    <img src="~/img/products/@item.ImageUrl" style="width:100%" />
-                                </div>
-                                <div class="pull-left" style="padding-top:10px; width:50%; float:right;">
-                                    <div style="text-align:center;">
-                                        <div style="padding-top:10px; margin-top:10px; height:60px; overflow:hidden;">
-                                            @Html.ActionLink(item.Name, "Details", "Products", new { id = item.Id }, new { @class = "h4" })
-                                        </div>
-                                        <div style="display:block; padding-top:10px; padding-bottom:10px">
-                                            <div class="price ">
-                                                <span class="price--kn">@((int)item.Price)</span>
-                                                <div class="price__ul">
-                                                    @{ int broj = (int)((item.Price - Math.Truncate(item.Price)) * 100); }
-                                                    <span class="price--li">@broj</span>
-                                                    <small class="price--c">kn/kom</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        @Html.ActionLink("Dodaj", "Details", "Products", new { id = item.Id }, new { @class = "btn btn-success" })
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div>
-
-
-
-                            </div>
-
-                        </div>
-                        index += 1;
-                    }
-                }
-
-            </div>
-            <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-20912caf49a53244"></div>
-            <div class="swiper-button-prev" tabindex="0" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-20912caf49a53244"></div>
-            <div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal"><span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 3"></span></div>
-            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
-        </div>
-    </div>
-</div>
-<br />
-<br />
-<h2>Pivo</h2>
-<div style="background: rgba(0, 58, 196, 0.12); border: 2px solid #7c7c7c; border-radius: 4px;">
-    <div id="pivo-swiper">
-        <div class="swiper mySwiper swiper-initialized swiper-horizontal swiper-pointer-events">
-            <div class="swiper-wrapper" id="swiper-wrapper-20912caf49a53244" aria-live="polite" style="transition-duration: 0ms; transform: translate3d(-1266px, 0px, 0px);">
-
-
-                @foreach (var item in Model)
-                {
-                    if (item.Category.Name == "Pivo")
-                    {
-                        var label = (index + 1);
-                        <div class="swiper-slide" data-swiper-slide-index="@index" role="group" aria-label="@label / @Model.Count()" style="margin-right:0px;">
-                            <div>
-                                <div style="text-align:center; margin-top:10px; width:50%; float:left; max-width:100px; height:200px; display: flex; justify-content: center; align-items: center;">
-                                    <img src="~/img/products/@item.ImageUrl" style="width:100%" />
-                                </div>
-                                <div class="pull-left" style="padding-top:10px; width:50%; float:right;">
-                                    <div style="text-align:center;">
-                                        <div style="padding-top:10px; margin-top:10px; height:60px; overflow:hidden;">
-                                            @Html.ActionLink(item.Name, "Details", "Products", new { id = item.Id }, new { @class = "h4" })
-                                        </div>
-                                        <div style="display:block; padding-top:10px; padding-bottom:10px">
-                                            <div class="price ">
-                                                <span class="price--kn">@((int)item.Price)</span>
-                                                <div class="price__ul">
-                                                    @{ int broj = (int)((item.Price - Math.Truncate(item.Price)) * 100); }
-                                                    <span class="price--li">@broj</span>
-                                                    <small class="price--c">kn/kom</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        @Html.ActionLink("Dodaj", "Details", "Products", new { id = item.Id }, new { @class = "btn btn-success" })
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div>
-
-
-
-                            </div>
-
-                        </div>
-                        index += 1;
-                    }
-                }
-
-            </div>
-            <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-20912caf49a53244"></div>
-            <div class="swiper-button-prev" tabindex="0" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-20912caf49a53244"></div>
-            <div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal"><span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 3"></span></div>
-            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
-        </div>
-    </div>
-</div>
-<br />
-<br />
-<h2>Vino</h2>
-<div style="background: rgba(0, 58, 196, 0.12); border: 2px solid #7c7c7c; border-radius: 4px;">
-    <div id="vino-swiper">
-        <div class="swiper mySwiper swiper-initialized swiper-horizontal swiper-pointer-events">
-            <div class="swiper-wrapper" id="swiper-wrapper-20912caf49a53244" aria-live="polite" style="transition-duration: 0ms; transform: translate3d(-1266px, 0px, 0px);">
-
-
-                @foreach (var item in Model)
-                {
-                    if (item.Category.Name == "Vino")
-                    {
-                        var label = (index + 1);
-                        <div class="swiper-slide" data-swiper-slide-index="@index" role="group" aria-label="@label / @Model.Count()" style="margin-right:0px;">
-                            <div>
-                                <div style="text-align:center; margin-top:10px; width:50%; float:left; max-width:100px; height:200px; display: flex; justify-content: center; align-items: center;">
-                                    <img src="~/img/products/@item.ImageUrl" style="width:100%" />
-                                </div>
-                                <div class="pull-left" style="padding-top:10px; width:50%; float:right;">
-                                    <div style="text-align:center;">
-                                        <div style="padding-top:10px; margin-top:10px; height:60px; overflow:hidden;">
-                                            @Html.ActionLink(item.Name, "Details", "Products", new { id = item.Id }, new { @class = "h4" })
-                                        </div>
-                                        <div style="display:block; padding-top:10px; padding-bottom:10px">
-                                            <div class="price ">
-                                                <span class="price--kn">@((int)item.Price)</span>
-                                                <div class="price__ul">
-                                                    @{ int broj = (int)((item.Price - Math.Truncate(item.Price)) * 100); }
-                                                    <span class="price--li">@broj</span>
-                                                    <small class="price--c">kn/kom</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        @Html.ActionLink("Dodaj", "Details", "Products", new { id = item.Id }, new { @class = "btn btn-success" })
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div>
-
-
-
-                            </div>
-
-                        </div>
-                        index += 1;
-                    }
-                }
-
-            </div>
-            <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-20912caf49a53244"></div>
-            <div class="swiper-button-prev" tabindex="0" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-20912caf49a53244"></div>
-            <div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal"><span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 3"></span></div>
-            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
-        </div>
-    </div>
-</div>
-<br />
-<br />
-<h2>Alkoholna pića</h2>
-<div style="background:rgba(0, 58, 196, 0.12); border:2px solid #7c7c7c; border-radius:4px;">
-    <div id="alkoholna-swiper">
-        <div class="swiper mySwiper swiper-initialized swiper-horizontal swiper-pointer-events">
-            <div class="swiper-wrapper" id="swiper-wrapper-20912caf49a53244" aria-live="polite" style="transition-duration: 0ms; transform: translate3d(-1266px, 0px, 0px);">
-
-
-                @foreach (var item in Model)
-                {
-                    if (item.Category.Name == "Alkoholna pića")
-                    {
-                        var label = (index + 1);
-                        <div class="swiper-slide" data-swiper-slide-index="@index" role="group" aria-label="@label / @Model.Count()" style="margin-right:0px;">
-                            <div>
-                                <div style="text-align:center; margin-top:10px; width:50%; float:left; max-width:100px; height:200px; display: flex; justify-content: center; align-items: center;">
-                                    <img src="~/img/products/@item.ImageUrl" style="width:100%" />
-                                </div>
-                                <div class="pull-left" style="padding-top:10px; width:50%; float:right;">
-                                    <div style="text-align:center;">
-                                        <div style="padding-top:10px; margin-top:10px; height:60px; overflow:hidden;">
-                                            @Html.ActionLink(item.Name, "Details", "Products", new { id = item.Id }, new { @class = "h4" })
-                                        </div>
-                                        <div style="display:block; padding-top:10px; padding-bottom:10px">
-                                            <div class="price ">
-                                                <span class="price--kn">@((int)item.Price)</span>
-                                                <div class="price__ul">
-                                                    @{ int broj = (int)((item.Price - Math.Truncate(item.Price)) * 100); }
-                                                    <span class="price--li">@broj</span>
-                                                    <small class="price--c">kn/kom</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        @Html.ActionLink("Dodaj", "Details", "Products", new { id = item.Id }, new { @class = "btn btn-success" })
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div>
-
-
-
-                            </div>
-
-                        </div>
-                        index += 1;
-                    }
-                }
-
-            </div>
-            <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-20912caf49a53244"></div>
-            <div class="swiper-button-prev" tabindex="0" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-20912caf49a53244"></div>
-            <div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal"><span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 3"></span></div>
-            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
-        </div>
-    </div>
-</div>
-
-
-
-
-
 
 
 <script src="https://unpkg.com/swiper@7.0.6/swiper-bundle.min.js"></script>
@@ -396,5 +171,20 @@
             },
         });
     }
-
+</script>
+<script>
+    function showSwiper(evt, swiperName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(swiperName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+    document.getElementById("defaultCategory").click();
 </script>
