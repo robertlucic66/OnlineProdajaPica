@@ -8,60 +8,57 @@
 <h2>Narudžbe</h2>
 
 <br/>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Username)
-        </th>
-        <th>
-            Narudžba
-        </th>
-        <th style="text-align:center;">
-            Vrijeme narudžbe
-        </th>
-        <th></th>
-    </tr>
+<div class="table-responsive">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+            <th>
+                Narudžba
+            </th>
+            <th style="text-align:center;">
+                Vrijeme narudžbe
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            if (item.Dostavljeno == true)
+            {
+                boja = "success";
+            }
+            else
+            {
+                boja = "warning";
+            }
+<tr class="@boja">
+    <td>
+        <b>@Html.DisplayFor(modelItem => item.Username)</b>
+    </td>
+    <td>
+        @foreach (var product in item.Products)
+        {
+<p>@product.Name - @product.Quantity</p>}
+    </td>
+    <td>
+        <p style="text-align:center;">
+            @Html.DisplayFor(modelItem => item.DatumNarudzbe)
+        </p>
 
-@foreach (var item in Model) {
-    if(item.Dostavljeno == true)
-    {
-        boja = "#6AF538";
-    }
-    else
-    {
-        boja = "#F5D26A";
-    }
-    <tr style="background-color:@boja">
-        <td>
-            <b>@Html.DisplayFor(modelItem => item.Username)</b>
-        </td>
-                <td>
-            @foreach (var product in item.Products)
-            {
-                <p>@product.Name - @product.Quantity</p>
-            }
-        </td>
-        <td>
-            <p style="text-align:center;">
-                @Html.DisplayFor(modelItem => item.DatumNarudzbe)
-            </p>
-            
-            @if (item.Dostavljeno == false)
-            {
-                <div style="display:block;text-align:center;">
-                    @Html.ActionLink("Označi kao dostavljeno", "MarkAsDelivered", new { id = item.Id }, new { @class="btn btn-default"})
-                </div>
-                
-            }
-            else 
-            {
-                <p style="text-align:center;">Dostavljeno</p>
-            }
-        </td>
-        <td>
-            @Html.ActionLink("Opširnije", "Details", new { id = item.Id })
-        </td>
-    </tr>
-}
+        @if (item.Dostavljeno == false)
+        {
+<div style="display:block;text-align:center;">
+    @Html.ActionLink("Označi kao dostavljeno", "MarkAsDelivered", new { id = item.Id }, new { @class = "btn btn-default" })
+</div> }
+                else
+                {
+<p style="text-align:center;">Dostavljeno</p>}
+    </td>
+    <td>
+        @Html.ActionLink("Opširnije", "Details", new { id = item.Id })
+    </td>
+</tr>}
+    </table>
+</div>
 
-</table>

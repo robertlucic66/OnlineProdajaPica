@@ -77,8 +77,15 @@
         font-size: 18px;
     }
 
-    @@media screen and (max-width:768px){
-        
+    @@media screen and (max-width:390px){
+        .forma{
+            transform: scale(0.7) translate(-40px);
+            width:180px;
+        }
+        .price{
+            transform: scale(0.7) translate(-20%);
+        }
+
     }
 
     #imeProizvoda{
@@ -157,7 +164,6 @@
                     <p>@Html.DisplayFor(modelItem => item.Description)</p>
                 </div>
 
-
                 <div class="price">
                     <span class="price--kn">@((int)item.Price)</span>
                     <div class="price__ul">
@@ -167,11 +173,11 @@
                     </div>
                 </div>
 
+               
 
-
-                @using (Html.BeginForm("AddToCart", "Cart", new { id = item.Id }, FormMethod.Get))
-                    {
-                        string quantityId = "quantity" + item.Id;
+                @using (Html.BeginForm("AddToCart", "Cart", new { id = item.Id }, FormMethod.Get, new { @class="forma"}))
+                {
+                    string quantityId = "quantity" + item.Id;
                     <div style="padding-top:40px; padding-bottom:15px;">
                         <span class="minusButton" onclick="smanjiKolicinu(@item.Id)">-</span>
                         <div style="display:inline-block;">

@@ -54,9 +54,9 @@ namespace OnlineProdajaPica
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "1017032572474369",
+               appSecret: "d36832875eb811823435402914697cba");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{
