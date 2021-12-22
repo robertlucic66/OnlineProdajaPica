@@ -13,12 +13,14 @@ namespace OnlineProdajaPica.Models
         public int Id { get; set; }
 
         [Required]
+        [Display(Name = "Ime proizvoda")]
         public string Name { get; set; }
 
         [Display(Name="Neto količina")]
         public string Description { get; set; }
 
         [Required]
+        [Display(Name = "Zaliha")]
         public int NumberInStock { get; set; }
 
         public Category Category { get; set; }
@@ -28,11 +30,13 @@ namespace OnlineProdajaPica.Models
 
         [Required]
         [Column(TypeName="money")]
+        [Display(Name = "Cijena")]
         public decimal Price { get; set; }
 
         public string ImageUrl { get; set; }
 
         [Range(1,int.MaxValue,ErrorMessage ="Unesena vrijednost nije ispravna.")]
+        [Display(Name = "Količina (kom)")]
         public int Quantity { get; set; }
     }
 }

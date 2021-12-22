@@ -1,7 +1,30 @@
 ﻿@model OnlineProdajaPica.Models.ExternalLoginListViewModel
 @using Microsoft.Owin.Security
 
-<h4>Use another service to log in.</h4>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .fb {
+            background-color: #3B5998;
+            color: white;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            opacity: 0.85;
+            font-size: 17px;
+            line-height: 20px;
+        }
+        .fb:hover{
+            opacity:1;
+            color:white;
+        }
+
+    </style>
+</head>
+
+
+<h4>Upotrijebite drugi servis za prijavu.</h4>
 <hr />
 @{
     var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
@@ -18,9 +41,11 @@
             @Html.AntiForgeryToken()
             <div id="socialLoginList">
                 <p>
-                    @foreach (AuthenticationDescription p in loginProviders) {
-                        <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">@p.AuthenticationType</button>
-                    }
+                    @foreach (AuthenticationDescription p in loginProviders)
+                    {
+                <button type="submit" class="btn fb" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Prijava putem @p.Caption računa">
+                    <i class="fa fa-facebook fa-fw"></i>@p.AuthenticationType prijava
+                </button>                    }
                 </p>
             </div>
         }

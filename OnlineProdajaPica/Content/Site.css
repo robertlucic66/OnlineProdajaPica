@@ -78,8 +78,11 @@ textarea {
 
 .icon-button {
     position: relative;
+    display: -webkit-flex;
     display: flex;
+    -webkit-align-items: center;
     align-items: center;
+    -webkit-justify-content: center;
     justify-content: center;
     width: 30px;
     height: 30px;
@@ -112,7 +115,7 @@ textarea {
     border-radius: 50%;
 }
 
-@media (max-width: 768px){
+@media (max-width: 767px){
     .divShoppingCartIcon{
         margin-left:15px;
         padding-top:10px;
@@ -168,4 +171,58 @@ textarea {
   border-top-left-radius:0px;
   border-top-right-radius:0px;
   border-top: none;
+}
+
+/*Sign up i Login forma*/
+.form-container {
+    margin: 20px;
+    padding: 50px 15px;
+    background: #00000014;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3), 0 7px 21px 0 rgba(0, 0, 0, 0.20);
+}
+.input-cnt {
+    display: flex;
+    margin-bottom: 15px;
+    justify-content: center;
+}
+.input-cnt:last-child {
+    margin-bottom: 0px;
+}
+.input-cnt > i {
+    min-width: 40px;
+    padding: 10px;
+    text-align: center;
+    background: lightgrey;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    color: #0076ff;
+}
+.input-cnt:hover > i {
+    background: #0076ff;
+    color: white;
+}
+.input-cnt > input[type="text"], .input-cnt > input[type="password"] {
+    outline: none;
+    border: none;
+    padding: 10px;
+    border: 1px solid lightgrey;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    width: 100%;
+}
+.input-cnt > input[type="submit"] {
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    width: 200px;
+    margin: 0 auto;
+    font-size: 105%;
+    padding: 8px;
+    color: #0076ff;
+    background: white;
+    transition-duration: .5s;
+}
+.input-cnt > input[type="submit"]:hover {
+    color: white;
+    background: #0076ff;
 }
